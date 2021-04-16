@@ -1,13 +1,12 @@
 import React from 'react';
 import {Layout} from "../layout";
+import HookMqtt from "../mqtt/Hook";
 
 const About = () =>
     <Layout>
-        <h1>About Enop</h1>
+        <h1 className='text-gray-100 text-5xl p-5'>About Enop</h1>
 
-        <wizard>
-
-        </wizard>
+        <HookMqtt />
     </Layout>;
 
 export default About;
