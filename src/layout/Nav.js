@@ -19,12 +19,12 @@ const navs = [
 
 
 const Nav = () => (
-    <nav className='bg-warning p-4 shadow'>
-        <ul className='flex space-x-10 justify-end'>
+    <nav className='bg-gray-800 p-4'>
+        <ul className='flex space-x-10 justify-end text-white'>
             {navs.map(navItem => (
             <li>
                 <NavLink exact to={navItem.path}
-                    activeClassName='border-b-2 border-black'>
+                    activeClassName='border-b-2 border-white '>
                         {navItem.name}
                 </NavLink>
             </li>
