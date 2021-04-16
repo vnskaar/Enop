@@ -1,7 +1,6 @@
 import React from 'react';
 import { Layout } from '../layout'
 import logo from '../assets/fhlogo.png';
-import Button1 from "../components/button";
 import { Button } from 'reactstrap';
 
 
@@ -9,7 +8,8 @@ import { Button } from 'reactstrap';
 const Home = () =>
     <Layout>
         <div className='flex flex-col justify-center items-center'>
-            <h1 className='text-white text-5xl'>Home of Energy Optimization</h1>
+            <h1 className='text-gray-100 text-5xl p-5'>Enop</h1>
+            <h1 className='text-gray-400 text-3xl'>The home of Energy Optimization</h1>
 
 
             <img className='mb-14' src={logo} alt="logo"/>

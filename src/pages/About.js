@@ -4,6 +4,10 @@ import {Layout} from "../layout";
 const About = () =>
     <Layout>
         <h1>About Enop</h1>
+
+        <wizard>
+
+        </wizard>
     </Layout>;
 
 export default About;
