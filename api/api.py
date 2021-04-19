@@ -10,13 +10,13 @@ import paho.mqtt.client as mqtt
 
 app = Flask(__name__)
 
-topic = "pt:j1/mt:cmd/rt:ad/rn:enop/ad:1"
+topic = "pt:j1/mt:cmd/rt:app/rn:vinculum/ad:1"
 hostname = "192.168.2.65"
 
-broker = hostname  #Broker address
-port = 1884                         #Broker port
-user = "jesper"                    #Connection username
-password = "jesper"            #Connection password
+broker = hostname  	#Broker address
+port = 1884        	#Broker port
+user = "jesper"    	#Connection username
+password = "jesper"	#Connection password
 
 auth = {
     "username" : "jesper",
@@ -67,9 +67,10 @@ getExtendedSetjson = json.dumps(getExtendedSet)
 getFullSend = json.dumps(testFullSend)
 
 def waitForResponse():
-	msg = subscribe.simple("pt:j1/mt:cmd/rt:ad/rn:enop/ad:1", hostname=hostname, port=port, auth=auth)
-	print("\n--==MESSAGE==--\n")
+	msg = subscribe.simple("pt:j1/mt:rsp/rt:cloud/rn:remote-client/ad:smarthome-app", hostname=hostname, port=port, auth=auth)
+	print("\n--==MESSAGE START==--\n")
 	print("%s %s" % (msg.topic, msg.payload))
+	print("\n--==MESSAGE END==--\n")
 	pass
 
 
