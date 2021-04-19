@@ -69,7 +69,7 @@ getFullSend = json.dumps(testFullSend)
 def waitForResponse():
 	msg = subscribe.simple("pt:j1/mt:rsp/rt:cloud/rn:remote-client/ad:smarthome-app", hostname=hostname, port=port, auth=auth)
 	print("\n--==MESSAGE START==--\n")
-	print("%s %s" % (msg.topic, msg.payload))
+	print("This is the topic: %s\n\nThis is the payload:\n\n %s" % (msg.topic, msg.payload))
 	print("\n--==MESSAGE END==--\n")
 	pass
 
