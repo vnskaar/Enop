@@ -13,7 +13,7 @@ const NewWizard = () => {
     }
 
     const renderButton = () => {
-        if (formStep < 2) {
+        if (formStep < 3) {
             return (
                 <button
                     onClick={nextStep}
@@ -25,7 +25,7 @@ const NewWizard = () => {
                 </button>
             )
         }
-         if (formStep > 0){
+         if (formStep > 2){
             return (
                 <button
                     onClick={preStep}
