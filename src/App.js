@@ -6,25 +6,11 @@ import {
     Link
 } from "react-router-dom";
 
-import { Button } from 'reactstrap';
 import { Home, About, Wiz} from './pages'
 import { Nav } from './layout'
 
-function GetExtendedset() {
-    fetch('/sendCommand')
-}
 
 function App() {
-  const [currentTime, setCurrentTime ] = useState(0);
-
-  useEffect(() => {
-    fetch('/time').then(res =>
-      res.json()).then(data => {
-        setCurrentTime(data.time);
-        console.log();
-      });
-  }, [])
-
   return (
     <Router>
       <Nav />
