@@ -1,5 +1,6 @@
 import time
 from flask import Flask
+from flask import request
 import paho.mqtt.client as mqtt
 import json
 import threading
@@ -11,29 +12,6 @@ import paho.mqtt.client as mqtt
 app = Flask(__name__)
 
 topic = "pt:j1/mt:cmd/rt:app/rn:tpflow/ad:1"
-hostname = "192.168.2.65"
-
-broker = hostname  	#Broker address
-port = 1884        	#Broker port
-user = "jesper"    	#Connection username
-password = "jesper"	#Connection password
-
-auth = {
-    "username" : "jesper",
-    "password" : "jesper"
-}
-
-@app.route('/connectHub')
-def connectHub():
-	broker_address = request.args.get('broker_address')
-	port = request.args.get('port')
-	user = request.args.get('user')
-	password = request.args.get('password')
-
-broker_address = hostname  #Broker address
-port = 1884               #Broker port
-user = "jesper"                    #Connection username
-password = "jesper"            #Connection password
 
 registryDevices = {
   "serv": "Energy Optimization",
@@ -49,44 +27,56 @@ registryDevices = {
 
 getRegistryDevices = json.dumps(registryDevices)
 
-def waitForResponse():
+hostname = ""
+port = ""
+user = ""
+password = ""
+auth = {}
+
+connection = False
+
+@app.route('/connectHub')
+def connectHub():
+	hostname = request.args.get('hostname')
+	port = request.args.get('port')
+	user = request.args.get('user')
+	password = request.args.get('password')
+
+	auth = {
+	"username" : user,
+	"password" : password
+	}
+	print(f'Trying to establish connection with %s on port %s as user %s' % (hostname, port, user))
+
+	sendCommand(hostname, port, auth)
+	response = {
+		"Status" : "Connection established!"
+	}
+
+	return (response)
+
+def waitForResponse(hostname, port, auth):
 	nrDevices = 0
 	devices = []
-	msg = subscribe.simple("pt:j1/mt:rsp/rt:app/rn:enop/ad:1", hostname=hostname, port=port, auth=auth)
-	
-	newMsg = json.loads(msg.payload)
-	print("\n--==MESSAGE START==--\n")
-	#print("This is the topic: %s\n\nThis is the payload:\n\n %s" % (msg.topic, msg.payload))
-	for key, value in newMsg.items():
-		print("Key:", key, "Value:", value)
+	port = int(port)
 
-	print("\n--==FOR LOOP==--\n")
-	print(type(newMsg["val"]))
-	print(newMsg["val"])
+	msg = subscribe.simple("pt:j1/mt:rsp/rt:app/rn:enop/ad:1", hostname=hostname, port=port, auth=auth)
+	newMsg = json.loads(msg.payload)
 
 	for val in newMsg["val"]:
 		nrDevices += 1
-		print(type(val))
 		devices.append(val.get('alias'))
-		print(val.get('alias'))
-	#print(newMsg["val"])
-	print("\n--==FOR LOOP END==--\n")	
 
-	print("\n--==MESSAGE END==--\n")
 	print("\nNumber of devices:", nrDevices)
 	print("\nDevices connected to the hub:", devices,"\n")
 	pass
 
-
-@app.route("/sendCommand")
-def sendCommand():
-	x = threading.Thread(target=waitForResponse)
+def sendCommand(hostname, port, auth):
+	x = threading.Thread(target=waitForResponse, args=(hostname, port, auth))
 	x.start()
 	time.sleep(0.1)
 
-	publish.single(topic, payload=getRegistryDevices, qos=0, retain=False, hostname=hostname,
-    port=1884, client_id="", keepalive=60, will=None, auth=auth, tls=None,
-    protocol=mqtt.MQTTv311, transport="tcp")
+	publish.single(topic, payload=getRegistryDevices, hostname=hostname, port=1884, auth=auth)
 
 	x.join()
 
