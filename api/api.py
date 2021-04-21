@@ -23,6 +23,13 @@ auth = {
     "password" : "jesper"
 }
 
+@app.route('/connectHub')
+def connectHub():
+	broker_address = request.args.get('broker_address')
+	port = request.args.get('port')
+	user = request.args.get('user')
+	password = request.args.get('password')
+
 broker_address = hostname  #Broker address
 port = 1884               #Broker port
 user = "jesper"                    #Connection username
