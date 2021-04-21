@@ -10,7 +10,7 @@ import paho.mqtt.client as mqtt
 
 app = Flask(__name__)
 
-topic = "pt:j1/mt:cmd/rt:app/rn:vinculum/ad:1"
+topic = "pt:j1/mt:cmd/rt:app/rn:tpflow/ad:1"
 hostname = "192.168.2.65"
 
 broker = hostname  	#Broker address
@@ -23,41 +23,29 @@ auth = {
     "password" : "jesper"
 }
 
-broker_address= hostname  #Broker address
+broker_address = hostname  #Broker address
 port = 1884               #Broker port
 user = "jesper"                    #Connection username
 password = "jesper"            #Connection password
 
-pd7request = {
-  "serv": "enop",
-  "type": "cmd.pd7.request",
-  "val_t": "object",
-  "val": {
-    "cmd": "get",
-    "component": None,
-    "id": None,
-    "client": None,
-    "param": {
-      "components": [
-        "state"
-      ]
-    },
-    "requestId": "161890508294127"
-  },
+registryDevices = {
+  "serv": "Energy Optimization",
+  "type": "cmd.registry.get_devices",
+  "val_t": "str_map",
+  "val": {},
   "props": None,
   "tags": None,
-  "resp_to": "pt:j1/mt:rsp/rt:cloud/rn:enop/ad:smarthome-app",
+  "resp_to": "pt:j1/mt:rsp/rt:app/rn:enop/ad:1",
   "src": "enop",
-  "ver": "1",
-  "topic": "pt:j1/mt:cmd/rt:app/rn:vinculum/ad:1"
+  "ver": "1"
 }
 
-getpd7request = json.dumps(pd7request)
+getRegistryDevices = json.dumps(registryDevices)
 
 def waitForResponse():
 	nrDevices = 0
-	msg = ""
-	msg = subscribe.simple("pt:j1/mt:rsp/rt:cloud/rn:enop/ad:smarthome-app", hostname=hostname, port=port, auth=auth)
+	devices = []
+	msg = subscribe.simple("pt:j1/mt:rsp/rt:app/rn:enop/ad:1", hostname=hostname, port=port, auth=auth)
 	
 	newMsg = json.loads(msg.payload)
 	print("\n--==MESSAGE START==--\n")
@@ -66,14 +54,20 @@ def waitForResponse():
 		print("Key:", key, "Value:", value)
 
 	print("\n--==FOR LOOP==--\n")
-	for device in newMsg["val"]["param"]["state"]["devices"]:
+	print(type(newMsg["val"]))
+	print(newMsg["val"])
+
+	for val in newMsg["val"]:
 		nrDevices += 1
-		print(device)
-		print("\nNumber of devices:", nrDevices)
+		print(type(val))
+		devices.append(val.get('alias'))
+		print(val.get('alias'))
 	#print(newMsg["val"])
 	print("\n--==FOR LOOP END==--\n")	
 
 	print("\n--==MESSAGE END==--\n")
+	print("\nNumber of devices:", nrDevices)
+	print("\nDevices connected to the hub:", devices,"\n")
 	pass
 
 
@@ -83,7 +77,7 @@ def sendCommand():
 	x.start()
 	time.sleep(0.1)
 
-	publish.single(topic, payload=getpd7request, qos=0, retain=False, hostname=hostname,
+	publish.single(topic, payload=getRegistryDevices, qos=0, retain=False, hostname=hostname,
     port=1884, client_id="", keepalive=60, will=None, auth=auth, tls=None,
     protocol=mqtt.MQTTv311, transport="tcp")
 
