@@ -1,26 +1,12 @@
-import React, {Component} from 'react';
+import StepWizard from "react-step-wizard";
 
-class Wizard extends Component {
-    render() {
-        return (
-            <div>
-                <h1>The wizard will now help you</h1>
-                <form>
-                    <div>
-                        <p>
-                            <label>
-                                Username
-                            </label>
-                        </p>
-                        <p>
-                            <input />
-                        </p>
-                    </div>
-                </form>
-
-            </div>
-        );
-    }
+const Wizard = () => {
+    <StepWizard>
+        <step1>
+            <step2>
+                ...
+                <step5>
+                    <whatevercomponentname>
+                    </whatevercomponentname></step5></step2></step1><
+    /StepWizard>
 }
-
-export default Wizard;

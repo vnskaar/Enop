@@ -25,7 +25,7 @@ const NewWizard = () => {
                 </button>
             )
         }
-        else if (formStep > 1){
+         if (formStep > 2){
             return (
                 <button
                     onClick={preStep}
