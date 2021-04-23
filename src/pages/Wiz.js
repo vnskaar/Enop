@@ -1,6 +1,5 @@
 import React from 'react';
 import {Layout} from "../layout";
-import NewWizard from '../components/newWizard'
 import MultiStepForm from "../components/multiStepForm";
 
 const Wiz = () =>
