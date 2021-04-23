@@ -1,7 +1,7 @@
 import React from 'react';
 import {Layout} from "../layout";
 import MultiStepForm from '../components/multiStepForm'
-import GetExtendedset from "../components/getExtendedset";
+import GetExtendedset from "../components/getDevices";
 import Button from "@material-ui/core/Button";
 
 

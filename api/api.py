@@ -1,5 +1,6 @@
 import time
 from flask import Flask
+from flask import request
 import paho.mqtt.client as mqtt
 import json
 import threading
@@ -10,91 +11,91 @@ import paho.mqtt.client as mqtt
 
 app = Flask(__name__)
 
-topic = "pt:j1/mt:cmd/rt:app/rn:vinculum/ad:1"
-hostname = "192.168.0.115"
+topic = "pt:j1/mt:cmd/rt:app/rn:tpflow/ad:1"
 
-broker = hostname  # Broker address
-port = 1884  # Broker port
-user = "admin"  # Connection username
-password = "admin"  # Connection password
-
-auth = {
-    "username": "admin",
-    "password": "admin"
+registryDevices = {
+  "serv": "Energy Optimization",
+  "type": "cmd.registry.get_devices",
+  "val_t": "str_map",
+  "val": {},
+  "props": None,
+  "tags": None,
+  "resp_to": "pt:j1/mt:rsp/rt:app/rn:enop/ad:1",
+  "src": "enop",
+  "ver": "1"
 }
 
-broker_address = hostname  # Broker address
-port = 1884  # Broker port
-user = "admin"  # Connection username
-password = "admin"  # Connection password
+getRegistryDevices = json.dumps(registryDevices)
 
-pd7request = {
-    "serv": "enop",
-    "type": "cmd.pd7.request",
-    "val_t": "object",
-    "val": {
-        "cmd": "get",
-        "component": None,
-        "id": None,
-        "client": None,
-        "param": {
-            "components": [
-                "state"
-            ]
-        },
-        "requestId": "161890508294127"
-    },
-    "props": None,
-    "tags": None,
-    "resp_to": "pt:j1/mt:rsp/rt:cloud/rn:enop/ad:smarthome-app",
-    "src": "enop",
-    "ver": "1",
-    "topic": "pt:j1/mt:cmd/rt:app/rn:vinculum/ad:1"
-}
+"""
+hostname = "wronk"
+port = "wronk"
+user = "wronk"
+password = "wronk"
+auth = {}
+"""
 
-getpd7request = json.dumps(pd7request)
+@app.route('/getDevices')
+def getDevices():
+    hostname = request.args.get('hostname')
+    port = request.args.get('port')
+    user = request.args.get('user')
+    password = request.args.get('password')
 
+    auth = {
+    "username" : user,
+    "password" : password
+    }
 
-def waitForResponse():
+    print(f'\nTrying to establish connection with %s on port %s as user %s' % (hostname, port, user))
+
+    try:
+        sendCommand(hostname, port, auth)
+        response = {
+        "Status" : "Connection established!"
+        }
+        print(response)
+    except Exception as e:
+        print("Something went wrong, errormessage:", e)
+        response = {
+        "Status" : "Connection failed!"
+        }
+        print(response)
+
+    return (response)
+
+def waitForResponse(hostname, port, auth):
     nrDevices = 0
+    devices = []
+    port = int(port)
     msg = ""
-    msg = subscribe.simple("pt:j1/mt:rsp/rt:cloud/rn:enop/ad:smarthome-app", hostname=hostname, port=port, auth=auth)
+    newMsg = ""
 
-    newMsg = json.loads(msg.payload)
-    print("\n--==MESSAGE START==--\n")
-    # print("This is the topic: %s\n\nThis is the payload:\n\n %s" % (msg.topic, msg.payload))
-    for key, value in newMsg.items():
-        print("Key:", key, "Value:", value)
+    try:
+        print("Subscribing to topic...")
+        msg = subscribe.simple("pt:j1/mt:rsp/rt:app/rn:enop/ad:1", hostname=hostname, port=port, auth=auth)
+        print("Subscribed to topic")
+        print("Waiting for message...")
+        time.sleep(0.1)
+        newMsg = json.loads(msg.payload)
+        for val in newMsg["val"]:
+            nrDevices += 1
+            devices.append(val.get('alias'))
 
-    print("\n--==FOR LOOP==--\n")
-    for device in newMsg["val"]["param"]["state"]["devices"]:
-        nrDevices += 1
-        print(device)
+        print("Message received")
         print("\nNumber of devices:", nrDevices)
-    # print(newMsg["val"])
-    print("\n--==FOR LOOP END==--\n")
-
-    print("\n--==MESSAGE END==--\n")
+        print("Devices connected to the hub:", devices,"\n")
+    except Exception as e:
+        print("Somethings went wrong, errormessage:", e)
+        return ("Somethings went wrong, errormessage:", e)
     pass
 
+    
 
-@app.route("/sendCommand")
-def sendCommand():
-    x = threading.Thread(target=waitForResponse)
+def sendCommand(hostname, port, auth):
+    x = threading.Thread(target=waitForResponse, args=(hostname, port, auth))
     x.start()
     time.sleep(0.1)
-
-    publish.single(topic, payload=getpd7request, qos=0, retain=False, hostname=hostname,
-                   port=1884, client_id="", keepalive=60, will=None, auth=auth, tls=None,
-                   protocol=mqtt.MQTTv311, transport="tcp")
-
+    publish.single(topic, payload=getRegistryDevices, hostname=hostname, port=1884, auth=auth)
     x.join()
-
-    return ("Command sent!")
-
-
-@app.route('/time')
-def get_current_time():
-    seconds = time.time()
-    local_time = time.ctime(seconds)
-    return {'time': local_time}
+    pass
