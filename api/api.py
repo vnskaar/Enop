@@ -35,8 +35,8 @@ password = "wronk"
 auth = {}
 """
 
-@app.route('/connectHub')
-def connectHub():
+@app.route('/getDevices')
+def getDevices():
 	hostname = request.args.get('hostname')
 	port = request.args.get('port')
 	user = request.args.get('user')
