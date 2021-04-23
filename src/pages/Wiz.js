@@ -9,7 +9,6 @@ const Wiz = () =>
             <div className='container mx-auto pd-20 flex flex-col justify-center items-center container'>
                 <MultiStepForm />
             </div>
-
     </Layout>;
 
 export default Wiz;

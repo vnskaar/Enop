@@ -27,7 +27,7 @@ const Account = ({ formData, setForm, navigation }) => {
                     value={email}
                     onChange={setForm}
                     margin='normal'
-                    variant='outlined'
+                    variant='filled'
                     autoComplete='off'
                     fullWidth
                 />
@@ -38,7 +38,7 @@ const Account = ({ formData, setForm, navigation }) => {
                     onChange={setForm}
                     type='password'
                     margin='normal'
-                    variant='outlined'
+                    variant='standard'
                     autoComplete='off'
                     fullWidth
                 />
@@ -48,7 +48,7 @@ const Account = ({ formData, setForm, navigation }) => {
                     value={confirmPassword}
                     onChange={setForm}
                     margin='normal'
-                    variant='outlined'
+                    variant='standard'
                     autoComplete='off'
                     fullWidth
                 />
