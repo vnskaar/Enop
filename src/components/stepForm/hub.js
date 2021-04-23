@@ -2,6 +2,7 @@ import React from "react";
 import TextField from "@material-ui/core/TextField";
 import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
+import CheckConnection from "../../components/checkConnection";
 
 const Hub = ({ formData, setForm, navigation }) => {
 
@@ -46,6 +47,16 @@ const Hub = ({ formData, setForm, navigation }) => {
                 variant='outlined'
                 autoComplete='off'
                 fullWidth />
+
+            <Button
+                variant='contained'
+                fullWidth
+                //color = 'default'
+                style={{ color:"green", marginTop: '1rem'}}
+                onClick={ () => CheckConnection(formData)}
+            >
+                Check Connection
+            </Button>
 
             <Button
                 variant='contained'

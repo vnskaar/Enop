@@ -1,9 +1,6 @@
-import React, { useState, useEffect } from "react";
 import {
     BrowserRouter as Router,
-    Switch,
-    Route,
-    Link
+    Route
 } from "react-router-dom";
 
 import { Home, About, Wiz, Login, LoggedIn } from './pages'

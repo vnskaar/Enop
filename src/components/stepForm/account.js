@@ -6,7 +6,6 @@ import Button from "@material-ui/core/Button";
 const Account = ({ formData, setForm, navigation }) => {
 
     const { name, email, password, confirmPassword } = formData;
-    console.log(navigation)
 
     return (
         <Container maxWidth='xs'>

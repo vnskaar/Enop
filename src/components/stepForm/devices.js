@@ -1,5 +1,4 @@
 import React from "react";
-import TextField from "@material-ui/core/TextField";
 import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
 import CheckConnection from "../../components/checkConnection";
@@ -7,7 +6,6 @@ import CheckConnection from "../../components/checkConnection";
 const Devices = ({ formData, setForm, navigation }) => {
 
     const { } = formData;
-
     return (
         <Container maxWidth='xs'>
             <h3 className='text-gray-400 text-3xl'>Devices</h3>
@@ -17,7 +15,7 @@ const Devices = ({ formData, setForm, navigation }) => {
                 fullWidth
                 color='success.main'
                 style={{ marginTop: '1rem'}}
-                onClick={CheckConnection(formData)}
+                onClick={ () => CheckConnection(formData)}
             >
                 Submit
             </Button>

@@ -1,7 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom'
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
-import {Link} from 'react-router'
 
 const navs = [
     {

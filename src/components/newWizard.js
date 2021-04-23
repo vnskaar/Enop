@@ -1,4 +1,3 @@
-import StepWizard from "react-step-wizard";
 import React from 'react';
 
 

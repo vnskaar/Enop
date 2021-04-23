@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from "react";
 import { Layout } from '../layout'
 import logo from '../assets/fhlogo.png';
-import Button from '@material-ui/core/Button';
 import GoToWizButton from "../components/goToWizButton";
 
 

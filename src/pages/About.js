@@ -1,6 +1,5 @@
 import React from 'react';
 import {Layout} from "../layout";
-import MultiStepForm from '../components/multiStepForm'
 import CheckConnection from "../components/checkConnection";
 import Button from "@material-ui/core/Button";
 
