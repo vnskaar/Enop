@@ -35,8 +35,8 @@ password = "wronk"
 auth = {}
 """
 
-@app.route('/getDevices')
-def getDevices():
+@app.route('/checkConnection')
+def checkConnection():
 	hostname = request.args.get('hostname')
 	port = request.args.get('port')
 	user = request.args.get('user')
