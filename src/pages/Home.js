@@ -16,6 +16,7 @@ function connectHub() {
   const port = "1884"
   const user = "jesper"
   const password = "jesper"
+  
   fetch('/connectHub' + "?" + "hostname=" + hostname + "&" + "port="
     + port + "&" + "user=" + user + "&" + "password=" + password).then(res =>
     res.json()).then(data => {

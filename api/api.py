@@ -27,13 +27,13 @@ registryDevices = {
 
 getRegistryDevices = json.dumps(registryDevices)
 
-hostname = ""
-port = ""
-user = ""
-password = ""
+"""
+hostname = "wronk"
+port = "wronk"
+user = "wronk"
+password = "wronk"
 auth = {}
-
-connection = False
+"""
 
 @app.route('/connectHub')
 def connectHub():
@@ -46,12 +46,22 @@ def connectHub():
 	"username" : user,
 	"password" : password
 	}
+
 	print(f'Trying to establish connection with %s on port %s as user %s' % (hostname, port, user))
 
-	sendCommand(hostname, port, auth)
-	response = {
+	#waitForResponse(hostname, port, auth)
+	try:
+		sendCommand(hostname, port, auth)
+		response = {
 		"Status" : "Connection established!"
-	}
+		}
+		print(response)
+	except Exception as e:
+		print("Something went wrong, errormessage:", e)
+		response = {
+		"Status" : "Connection failed!"
+		}
+		print(response)
 
 	return (response)
 
@@ -59,31 +69,34 @@ def waitForResponse(hostname, port, auth):
 	nrDevices = 0
 	devices = []
 	port = int(port)
+	print("Port has wrong format, use only numbers")
+	msg = ""
+	newMsg = ""
 
-	msg = subscribe.simple("pt:j1/mt:rsp/rt:app/rn:enop/ad:1", hostname=hostname, port=port, auth=auth)
-	newMsg = json.loads(msg.payload)
+	print("Subscribing to topic")
+	try:
+		msg = subscribe.simple("pt:j1/mt:rsp/rt:app/rn:enop/ad:1", hostname=hostname, port=port, auth=auth)
+		time.sleep(0.1)
+		print("Waiting for message...")
+		newMsg = json.loads(msg.payload)
 
-	for val in newMsg["val"]:
-		nrDevices += 1
-		devices.append(val.get('alias'))
+		for val in newMsg["val"]:
+			nrDevices += 1
+			devices.append(val.get('alias'))
 
-	print("\nNumber of devices:", nrDevices)
-	print("\nDevices connected to the hub:", devices,"\n")
+		print("\nNumber of devices:", nrDevices)
+		print("Devices connected to the hub:", devices,"\n")
+	except Exception as e:
+		print("Somethings went wrong, errormessage:", e)
+		return ("Somethings went wrong, errormessage:", e)
 	pass
+
+	
 
 def sendCommand(hostname, port, auth):
 	x = threading.Thread(target=waitForResponse, args=(hostname, port, auth))
 	x.start()
 	time.sleep(0.1)
-
 	publish.single(topic, payload=getRegistryDevices, hostname=hostname, port=1884, auth=auth)
-
 	x.join()
-
-	return("Command sent!")
-
-@app.route('/time')
-def get_current_time():
-	seconds = time.time()
-	local_time = time.ctime(seconds)
-	return {'time': local_time}
+	pass
