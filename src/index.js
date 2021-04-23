@@ -10,6 +10,9 @@ import { red, green, blue } from '@material-ui/core/colors/';
 const darkTheme = createMuiTheme({
     palette: {
         type: "dark",
+        typography: {
+            color: 'white',
+        },
         primary: {
             main: '#00ac83',
         },
@@ -22,6 +25,9 @@ const darkTheme = createMuiTheme({
 const lightTheme = createMuiTheme({
     palette: {
         type: "light",
+        typography: {
+            color: 'black',
+        },
         primary: {
             main: '#00ac83',
         },
@@ -33,7 +39,7 @@ const lightTheme = createMuiTheme({
 
 ReactDOM.render(
   <React.StrictMode>
-      <ThemeProvider theme={darkTheme}>
+      <ThemeProvider theme={lightTheme}>
           <CssBaseline />
           <App />
       </ThemeProvider>
