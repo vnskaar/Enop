@@ -15,8 +15,8 @@ hostname = "192.168.0.115"
 
 broker = hostname  # Broker address
 port = 1884  # Broker port
-user = "jesper"  # Connection username
-password = "jesper"  # Connection password
+user = "admin"  # Connection username
+password = "admin"  # Connection password
 
 auth = {
     "username": "admin",
