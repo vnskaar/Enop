@@ -13,10 +13,6 @@ const navs = [
         name: 'About'
     },
     {
-        path: '/wiz',
-        name: 'Wiz'
-    },
-    {
         path: '/login',
         name: 'Login'
     },
