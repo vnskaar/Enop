@@ -22,31 +22,33 @@ const Devices = ({ formData, setForm, navigation }) => {
         setChecked(newChecked);
     };
 
-    const { } = formData;
+    const {} = formData;
     return (
         <Container maxWidth='xs'>
             <h3 className='text-gray-400 text-3xl'>Devices</h3>
+            <div className='w-50'>
+                <List>
+                    {[formData.name, formData.email, formData.password, formData.val1, formData.val2, formData.val3, formData.val4].map((value) => {
+                        const labelId = `checkbox-list-label-${value}`;
 
-            <List>
-                {[0, 1, 2, 3, 4].map((value) => {
-                    const labelId = `checkbox-list-label-${value}`;
+                        return (
+                            <ListItem key={value} role={undefined} dense button onClick={handleToggle(value)}>
+                                <ListItemIcon>
+                                    <Checkbox
+                                        edge="start"
+                                        checked={checked.indexOf(value) !== -1}
+                                        tabIndex={-1}
+                                        disableRipple
+                                        inputProps={{ 'aria-labelledby': labelId }}
+                                    />
+                                </ListItemIcon>
+                                <ListItemText id={labelId} primary={`${value}`} />
+                            </ListItem>
+                        );
+                    })}
+                </List>
+            </div>
 
-                    return (
-                        <ListItem key={value} role={undefined} dense button onClick={handleToggle(value)}>
-                            <ListItemIcon>
-                                <Checkbox
-                                    edge="start"
-                                    checked={checked.indexOf(value) !== -1}
-                                    tabIndex={-1}
-                                    disableRipple
-                                    inputProps={{ 'aria-labelledby': labelId }}
-                                />
-                            </ListItemIcon>
-                            <ListItemText id={labelId} primary={`Device ${value + 1}`} />
-                        </ListItem>
-                    );
-                })}
-            </List>
             <Button
                 variant='contained'
                 fullWidth
