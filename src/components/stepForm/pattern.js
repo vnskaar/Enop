@@ -3,6 +3,7 @@ import TextField from "@material-ui/core/TextField";
 import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
 
+
 const Pattern = ({ formData, setForm, navigation }) => {
 
     const { val1, val2, val3, val4 } = formData;
@@ -18,7 +19,11 @@ const Pattern = ({ formData, setForm, navigation }) => {
                 margin='normal'
                 variant='outlined'
                 autoComplete='off'
-                fullWidth />
+                fullWidth
+                type='time'
+                InputLabelProps={{
+                    shrink: true}}
+            />
             <TextField
                 label='Last leave'
                 name='val2'
@@ -27,7 +32,11 @@ const Pattern = ({ formData, setForm, navigation }) => {
                 margin='normal'
                 variant='outlined'
                 autoComplete='off'
-                fullWidth />
+                fullWidth
+                type='time'
+                InputLabelProps={{
+                    shrink: true}}
+            />
             <TextField
                 label='First home'
                 name='val3'
@@ -36,7 +45,13 @@ const Pattern = ({ formData, setForm, navigation }) => {
                 margin='normal'
                 variant='outlined'
                 autoComplete='off'
-                fullWidth />
+                fullWidth
+                type='time'
+                InputLabelProps={{
+                    shrink: true,
+                }}
+
+            />
             <TextField
                 label='Last bed'
                 name='val4'
@@ -45,7 +60,11 @@ const Pattern = ({ formData, setForm, navigation }) => {
                 margin='normal'
                 variant='outlined'
                 autoComplete='off'
-                fullWidth />
+                fullWidth
+                type='time'
+                InputLabelProps={{
+                    shrink: true}}
+            />
 
             <Button
                 variant='contained'
