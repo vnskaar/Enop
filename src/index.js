@@ -10,6 +10,12 @@ import { red, green, blue } from '@material-ui/core/colors/';
 const darkTheme = createMuiTheme({
     palette: {
         type: "dark",
+        background: {
+            default: '#18303f',
+        },
+        Nav :{
+            default: 'C4C4C4',
+        },
         typography: {
             color: 'white',
         },
@@ -25,6 +31,12 @@ const darkTheme = createMuiTheme({
 const lightTheme = createMuiTheme({
     palette: {
         type: "light",
+        background: {
+            default: '#DADADA',
+        },
+        Nav :{
+            default: 'F94409',
+        },
         typography: {
             color: 'black',
         },

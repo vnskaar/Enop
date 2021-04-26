@@ -20,7 +20,8 @@ const navs = [
 
 
 const Nav = () => (
-    <nav className='p-4'>
+
+<nav className='p-4'>
         <AccountBoxIcon className='absolute float-left text-white fontSizeLarge'/>
         <ul className='flex space-x-10 justify-end text-white'>
                 {navs.map(navItem => (
