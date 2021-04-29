@@ -4,17 +4,8 @@ import Container from '@material-ui/core/Container'
 import Button from '@material-ui/core/Button'
 import {Link} from "react-router-dom";
 
-const styles = {
-    root: {
-        background: "white"
-    },
-    input: {
-        color: "black"
-    }
-};
 
 const Login = (props) => {
-    const { classes } = props;
     return(
         <Container maxWidth='xs'>
             <div className='flex flex-col justify-center items-center'>

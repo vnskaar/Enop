@@ -1,20 +1,8 @@
 import React from "react";
 import { Layout } from '../layout'
-import { CircularProgressbar, CircularProgressbarWithChildren  } from 'react-circular-progressbar';
+import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-
-
-import {
-    Checkbox,
-    FormControl,
-    FormControlLabel,
-    FormGroup,
-    FormHelperText,
-    FormLabel, ListItem, ListItemIcon, ListItemText,
-    makeStyles,
-    Button, Switch
-} from "@material-ui/core";
-import List from "reactstrap/es/List";
+import { FormLabel, Button } from "@material-ui/core";
 import {Link} from "react-router-dom";
 import DeviceListSwitches from "../components/deviceListSwitches";
 

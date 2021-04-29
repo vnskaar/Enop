@@ -1,6 +1,5 @@
 import React, {Component} from "react";
-import thingsReport from '../assets/jsonData/thingsReport.json'
-import {Checkbox, FormControlLabel, FormGroup, ListItem, ListItemIcon, ListItemText, Switch} from "@material-ui/core";
+import {Checkbox, FormControlLabel, FormGroup} from "@material-ui/core";
 
 function handleDeviceToggle() {
 

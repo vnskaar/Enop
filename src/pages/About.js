@@ -2,11 +2,10 @@ import React from 'react';
 import {Layout} from "../layout";
 import CheckConnection from "../components/checkConnection";
 import Button from "@material-ui/core/Button";
-import {MuiThemeProvider, Typography, ThemeProvider} from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import {lightTheme, darkTheme} from "../index";
 import DeviceListCheckbox from "../components/deviceListCheckbox";
 import DeviceListSwitches from '../components/deviceListSwitches'
-import Test from '../components/test'
 import Container from "@material-ui/core/Container";
 
 

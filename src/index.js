@@ -17,8 +17,8 @@ const darkTheme = createMuiTheme({
         Nav :{
             default: 'C4C4C4',
         },
-        typography: {
-            color: 'white',
+        Typography: {
+            color: 'green',
             fontSize: 50,
         },
         primary: {
