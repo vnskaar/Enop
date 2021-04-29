@@ -10,7 +10,7 @@ const Pattern = ({ formData, setForm, navigation }) => {
 
     return (
         <Container maxWidth='xs'>
-            <h3 className='text-gray-400 text-3xl'>Pattern</h3>
+            <h3 className='text-gray-400 text-3xl'>Household schedule</h3>
             <TextField
                 label='First up'
                 name='val1'

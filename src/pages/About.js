@@ -2,17 +2,38 @@ import React from 'react';
 import {Layout} from "../layout";
 import CheckConnection from "../components/checkConnection";
 import Button from "@material-ui/core/Button";
+import {MuiThemeProvider, Typography, ThemeProvider} from "@material-ui/core";
+import {lightTheme, darkTheme} from "../index";
+import DeviceListCheckbox from "../components/deviceListCheckbox";
+import DeviceListSwitches from '../components/deviceListSwitches'
+import Test from '../components/test'
+import Container from "@material-ui/core/Container";
 
 
 const About = () =>
-    <Layout>
-        <div>
-            <h1 className='text-gray-100 text-5xl p-5'>About Enop</h1>
+    <Container maxWidth='xs'>
+        <Layout>
 
-            <Button variant="contained" color="primary" onClick={CheckConnection} >Send Command</Button>
+                <Typography
+                    variant='h2'
+                >
+                    About Enop
+                </Typography>
 
-        </div>
 
-    </Layout>;
+                <Button variant="contained" color="primary" onClick={CheckConnection} >Send Command</Button>
+
+            <div>
+                <h2 className='text-gray-400 text-3xl'>DeviceListSwitches</h2>
+                <DeviceListSwitches></DeviceListSwitches>
+            </div>
+
+            <div>
+                <h2 className='text-gray-400 text-3xl'>DeviceListCheckbox</h2>
+                <DeviceListCheckbox></DeviceListCheckbox>
+            </div>
+
+        </Layout>
+    </Container>
 
 export default About;

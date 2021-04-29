@@ -1,9 +1,11 @@
 import React from "react";
 import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
-import CheckConnection from "../../components/checkConnection";
 import {Checkbox, IconButton, ListItem, ListItemIcon, ListItemSecondaryAction, ListItemText} from "@material-ui/core";
 import List from "reactstrap/es/List";
+import {Link} from "react-router-dom";
+import DeviceListCheckbox from "../deviceListCheckbox";
+
 
 const Devices = ({ formData, setForm, navigation }) => {
 
@@ -25,28 +27,10 @@ const Devices = ({ formData, setForm, navigation }) => {
     const {} = formData;
     return (
         <Container maxWidth='xs'>
-            <h3 className='text-gray-400 text-3xl'>Devices</h3>
+            <h3 className='text-gray-400 text-3xl'>Select Devices to optimize</h3>
             <div className='w-50'>
-                <List>
-                    {[formData.name, formData.email, formData.password, formData.val1, formData.val2, formData.val3, formData.val4].map((value) => {
-                        const labelId = `checkbox-list-label-${value}`;
+            <DeviceListCheckbox/>
 
-                        return (
-                            <ListItem key={value} role={undefined} dense button onClick={handleToggle(value)}>
-                                <ListItemIcon>
-                                    <Checkbox
-                                        edge="start"
-                                        checked={checked.indexOf(value) !== -1}
-                                        tabIndex={-1}
-                                        disableRipple
-                                        inputProps={{ 'aria-labelledby': labelId }}
-                                    />
-                                </ListItemIcon>
-                                <ListItemText id={labelId} primary={`${value}`} />
-                            </ListItem>
-                        );
-                    })}
-                </List>
             </div>
 
             <Button
@@ -54,7 +38,7 @@ const Devices = ({ formData, setForm, navigation }) => {
                 fullWidth
                 color='primary'
                 style={{ marginTop: '1rem'}}
-                onClick={ () => CheckConnection(formData)}
+                component={Link} to="/loggedIn"
             >
                 Submit
             </Button>
