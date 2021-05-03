@@ -1,7 +1,4 @@
 import React, {Component} from "react";
-import thingsReport from '../assets/jsonData/thingsReport.json'
-import {CheckBox} from "@material-ui/icons";
-import List from "reactstrap/es/List";
 import {Checkbox, FormControlLabel, FormGroup, ListItem, ListItemIcon, ListItemText, Switch} from "@material-ui/core";
 
 const DeviceListSwitches = ({isOn, handleDeviceToggle}) => {
@@ -21,7 +18,6 @@ const DeviceListSwitches = ({isOn, handleDeviceToggle}) => {
                                         label={values.alias}>
                                     </FormControlLabel>
                                 </FormGroup>
-
                             </div>
                         </li>
                     ))

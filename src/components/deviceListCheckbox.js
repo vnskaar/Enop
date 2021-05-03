@@ -1,13 +1,14 @@
 import React, {Component} from "react";
 import {Checkbox, FormControlLabel, FormGroup} from "@material-ui/core";
 
-function handleDeviceToggle() {
-
-}
 
 const DeviceListCheckbox = () => {
 
     const data = require('../assets/jsonData/thingsReport.json')
+
+    function handleDeviceToggle() {
+
+    }
 
     let isOn;
     return(

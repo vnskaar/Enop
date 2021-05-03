@@ -45,7 +45,6 @@ const LoggedIn = () => {
                     <div>
                         <Button
                             variant="contained" color="primary"
-                            component={Link} to="/loggedIn"
                         >
                             Submit
                         </Button>

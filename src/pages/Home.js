@@ -2,7 +2,7 @@ import { Layout } from '../layout'
 import logo from '../assets/fhlogo.png';
 import GoToWizButton from "../components/goToWizButton";
 import {Typography} from "@material-ui/core";
-
+import style from '../styles/style.css'
 
 const Home = () =>
     <Layout>
