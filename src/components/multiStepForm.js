@@ -25,6 +25,7 @@ const steps = [
     { id: 'hub'},
     { id: 'pattern'},
     { id: 'devices'},
+    { id: 'LoggedIn'},
 ]
 
 const MultiStepForm = () => {
@@ -34,7 +35,9 @@ const MultiStepForm = () => {
         initialStep :0
     })
 
-    const props = { formData, setForm, navigation}
+    const selectedDevices = new Set();
+
+    const props = { formData, setForm, navigation, selectedDevices }
 
     switch (step.id) {
         case 'account':

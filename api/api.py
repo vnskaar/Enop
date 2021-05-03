@@ -25,7 +25,84 @@ registryDevices = {
     "ver": "1"
 }
 
+
+newFlow = {
+        "serv": "tpflow",
+        "type": "cmd.flow.update_definition",
+        "val_t": "object",
+        "val": {
+            "Description": "Run mode: away ",
+            "Group": "timer",
+            "Name": "enop optimization",
+            "Nodes": [
+                {
+                    "Service": "tpflow",
+                    "Label": "Klokka 11:00 i ukedagene",
+                    "Type": "time_trigger",
+                    "Config": {
+                        "Expressions": [
+                            {
+                                "Expression": "0 08 * * 0,1,5,6", # 0=Søndag -> 6=Lørdag
+                                "Name": "Klokka 11:00 i ukedagene"
+                            }
+                        ], # Hvis denne fjernes så kan man ikke endre tidspunkt for automasjonen i FH-app
+                        "GenerateAstroTimeEvents": False,
+                        "Latitude": 59.9322791,
+                        "Longitude": 10.7720139,
+                        "SunriseTimeOffset": None,
+                        "SunsetTimeOffset": None
+                    },
+                    "Ui": { # Hvis UI fjernes, så kan ikke automasjonen redigeres i FH-app
+                        "papp": {
+                            "nodeName": "time",
+                            "nodeId": None,
+                            "nodeType": "Timer"
+                        }
+                    },
+                    "IsVariableGlobal": None
+                },
+                {
+                    "Address": "pt:j1/mt:cmd/rt:app/rn:vinculum/ad:1",
+                    "Id": "74",
+                    "ErrorTransition": None,
+                    "Service": "vinculum",
+                    "Label": "Run mode: away",
+                    "ServiceInterface": "cmd.pd7.request",
+                    "SuccessTransition": None,
+                    "TimeoutTransition": None,
+                    "Type": "action",
+                    "Config": {
+                        "DefaultValue": {
+                            "Value": {
+                                "cmd": "set",
+                                "component": "mode",
+                                "id": "away",
+                                "param": {},
+                                "requestId": 25
+                            },
+                            "ValueType": "object"
+                        },
+                        "ResponseToTopic": "pt:j1/mt:rsp/rt:app/rn:tpflow/ad:1"
+                    },
+                    "Ui": { # Hvis denne fjernes kan man ikke få opp noe info om automasjonen i FH-app
+                        "papp": {
+                            "nodeName": "modes",
+                            "nodeId": "away",
+                            "nodeType": None
+                        }
+                    },
+                    "IsVariableGlobal": None
+                }
+            ]
+        },
+        "props": None,
+        "tags": None,
+        "src": "app",
+        "ver": "1"
+}
+
 getRegistryDevices = json.dumps(registryDevices)
+getRegistryDevices = json.dumps(newFlow)
 
 """
 hostname = "wronk"
@@ -39,7 +116,7 @@ auth = {}
 @app.route('/checkConnection')
 def checkConnection():
     hostname = request.args.get('hostname')
-    port = request.args.get('port')
+    port = 1884
     user = request.args.get('user')
     password = request.args.get('password')
 
@@ -52,14 +129,16 @@ def checkConnection():
 
     try:
         sendCommand(hostname, port, auth)
+
         response = {
             "Status": "Connection established!"
         }
         print(response)
     except Exception as e:
-        print("Something went wrong, errormessage:", e)
+        print("Connection failed, errormessage:", e)
+
         response = {
-            "Status": "Connection failed!"
+            "Status": "Connection failed"
         }
         print(response)
 
@@ -75,7 +154,8 @@ def waitForResponse(hostname, port, auth):
 
     try:
         print("Subscribing to topic...")
-        msg = subscribe.simple("pt:j1/mt:rsp/rt:app/rn:enop/ad:1", hostname=hostname, port=port, auth=auth)
+        #msg = subscribe.simple("pt:j1/mt:rsp/rt:app/rn:enop/ad:1", hostname=hostname, port=port, auth=auth)
+        msg = subscribe.simple("pt:j1/mt:evt/rt:app/rn:tpflow/ad:1", hostname=hostname, port=port, auth=auth)
         print("Subscribed to topic")
         time.sleep(0.1)
         print("Waiting for message...")

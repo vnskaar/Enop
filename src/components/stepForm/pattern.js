@@ -1,7 +1,5 @@
 import React from "react";
-import TextField from "@material-ui/core/TextField";
-import Container from "@material-ui/core/Container";
-import Button from "@material-ui/core/Button";
+import { TextField, Container, Button, Grid } from "@material-ui/core";
 
 
 const Pattern = ({ formData, setForm, navigation }) => {
@@ -11,60 +9,77 @@ const Pattern = ({ formData, setForm, navigation }) => {
     return (
         <Container maxWidth='xs'>
             <h3 className='text-gray-400 text-3xl'>Household schedule</h3>
+            <Grid
+                container
+                direction="column"
+                justify="center"
+                alignItems="center"
+            >
             <TextField
                 label='First up'
+                defaultValue="06:00"
                 name='val1'
-                value={val1}
                 onChange={setForm}
                 margin='normal'
                 variant='outlined'
                 autoComplete='off'
-                fullWidth
                 type='time'
                 InputLabelProps={{
-                    shrink: true}}
+                    shrink: true
+                }}
+                inputProps={{
+                    step: 300, // 5 min
+                }}
             />
             <TextField
                 label='Last leave'
                 name='val2'
-                value={val2}
                 onChange={setForm}
                 margin='normal'
                 variant='outlined'
                 autoComplete='off'
-                fullWidth
                 type='time'
+                defaultValue="08:00"
                 InputLabelProps={{
-                    shrink: true}}
+                    shrink: true
+                }}
+                inputProps={{
+                    step: 300, // 5 min
+                }}
             />
             <TextField
                 label='First home'
                 name='val3'
-                value={val3}
                 onChange={setForm}
                 margin='normal'
                 variant='outlined'
                 autoComplete='off'
-                fullWidth
                 type='time'
+                defaultValue="15:00"
                 InputLabelProps={{
                     shrink: true,
+                }}
+                inputProps={{
+                    step: 300, // 5 min
                 }}
 
             />
             <TextField
                 label='Last bed'
                 name='val4'
-                value={val4}
                 onChange={setForm}
                 margin='normal'
                 variant='outlined'
                 autoComplete='off'
-                fullWidth
                 type='time'
+                defaultValue="23:00"
                 InputLabelProps={{
                     shrink: true}}
+                inputProps={{
+                    step: 300, // 5 min
+                }}
             />
+            </Grid>
 
             <Button
                 variant='contained'

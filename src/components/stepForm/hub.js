@@ -1,14 +1,32 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import TextField from "@material-ui/core/TextField";
 import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
 import CheckConnection from "../../components/checkConnection";
 import {FormHelperText} from "@material-ui/core";
+import {Check} from "@material-ui/icons";
+
 
 
 const Hub = ({ formData, setForm, navigation }) => {
 
-    const { hubAddress, hubPort, hubUsername, hubPassword } = formData;
+    const { hubAddress, hubUsername, hubPassword } = formData;
+    const [connection, setConnection] = useState("Connection unknown");
+
+    function CheckCheckConnection(props) {
+        setConnection("Checking connection...")
+        const formData = props;
+
+        const hostname = formData.hubAddress;
+        const user = formData.hubUsername;
+        const password = formData.hubPassword;
+
+        fetch('/checkConnection' + "?" + "hostname=" + hostname + "&" + "user=" + user + "&" + "password=" + password).then(res =>
+            res.json()).then(data => {
+            setConnection(data.Status);
+        })
+    }
+
 
     return (
         <Container maxWidth='xs'>
@@ -18,17 +36,6 @@ const Hub = ({ formData, setForm, navigation }) => {
                     label='Hub Address'
                     name='hubAddress'
                     value={hubAddress}
-                    onChange={setForm}
-                    margin='normal'
-                    variant='outlined'
-                    autoComplete='off'
-                    fullWidth
-                />
-
-                <TextField
-                    label='Hub Port'
-                    name='hubPort'
-                    value={hubPort}
                     onChange={setForm}
                     margin='normal'
                     variant='outlined'
@@ -59,12 +66,13 @@ const Hub = ({ formData, setForm, navigation }) => {
             </div>
 
             <div>
+                <p>{connection}</p>
                 <Button
                     variant='contained'
                     fullWidth
                     color = 'error'
                     style={{ backgroundColor: '#023B2E', color:"white", marginTop: '1rem'}}
-                    onClick={ () => CheckConnection(formData)}
+                    onClick={ () => CheckCheckConnection(formData)}
                 >
                     Check Connection
                 </Button>
