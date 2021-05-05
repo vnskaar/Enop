@@ -1,7 +1,6 @@
 import time
 from flask import Flask
 from flask import request
-import paho.mqtt.client as mqtt
 import json
 import threading
 
@@ -27,14 +26,17 @@ registryDevices = {
 
 getRegistryDevices = json.dumps(registryDevices)
 
-"""
-hostname = "wronk"
-port = "wronk"
-user = "wronk"
-password = "wronk"
-auth = {}
-"""
+flag_connected = 0
 
+def on_connect(client, userdata, flags, rc):
+   global flag_connected
+   flag_connected = 1
+   return ("Connection success!")
+
+def on_disconnect(client, userdata, rc):
+   global flag_connected
+   flag_connected = 0
+   return ("Connection disconnected")
 
 @app.route('/checkConnection')
 def checkConnection():
@@ -42,6 +44,68 @@ def checkConnection():
     port = request.args.get('port')
     user = request.args.get('user')
     password = request.args.get('password')
+    
+    try:
+        port = int(port)
+    except Exception as e:
+        print("Port can only contain numbers")
+    
+
+    client = mqtt.Client()
+    client.on_connect = on_connect
+    client.on_disconnect = on_disconnect
+    client.username_pw_set(user, password=password)
+    client.connect(hostname, port)
+
+    client.loop_start()
+    time.sleep(0.1)
+
+    response = {
+            "Status": "Nothing happened"
+        }
+
+    if flag_connected == 1:
+        print("Connection successful")
+        response = {
+            "Status": "Connection successful!"
+        }
+        return response
+    elif flag_connected == 0:
+        print("Connection failed")
+        response = {
+            "Status": "Connection failed!"
+        }
+        return response
+    else:
+        print("Something went WEWY WRONG")
+        response = {
+            "Status": "Connection failed!"
+        }
+        return response
+
+#@app.route('/checkConnection')
+def checkConnection():
+    hostname = request.args.get('hostname')
+    port = request.args.get('port')
+    user = request.args.get('user')
+    password = request.args.get('password')
+
+    allData = {
+        "Hostname": hostname,
+        "Port": port,
+        "Username": user,
+        "Password": password
+        }
+
+    for data in allData:
+        if allData[data] == "":
+            out = (data, "cant be empty")
+            response = {
+                "Status": "Connection failed!",
+                "Error": (data, "cant be empty")
+            }
+            print(response)
+            return response
 
     auth = {
         "username": user,
@@ -53,7 +117,7 @@ def checkConnection():
     try:
         sendCommand(hostname, port, auth)
         response = {
-            "Status": "Connection established!"
+            "Status": "Message sent!"
         }
         print(response)
     except Exception as e:
@@ -79,8 +143,13 @@ def waitForResponse(hostname, port, auth):
         print("Subscribed to topic")
         time.sleep(0.1)
         print("Waiting for message...")
-        newMsg = json.loads(msg.payload)
-        print("\n--==MESSAGE==--")
+        try:
+            newMsg = json.loads(msg.payload)
+        except Exception as e:
+            print("Something went wrong when trying to read message")
+            return ("Something went wrong when trying to read message")
+        
+        print("\n--==MESSAGE RECEIVED==--")
         for val in newMsg["val"]:
             nrDevices += 1
             devices.append(val.get('alias'))
