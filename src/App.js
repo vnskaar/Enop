@@ -11,55 +11,56 @@ import Dashboard from "./components/Dashboard";
 import { Container } from "@material-ui/core";
 
 
-function App() {
-  return (
-      <Container
-          className="d-flex align-items-center justify-content-center"
-          style={{ minHeight: "100vh" }}
-
-      >
-        <div className="w-100" style={{ maxWidth: "400px" }}>
-          <Router>
-            <AuthProvider>
-              <Switch>
-                <PrivateRoute exact path="/" component={Dashboard} />
-                <PrivateRoute path="/loggedIn" component={LoggedIn} />
-                <Route path="/signup" component={Signup} />
-                <Route path="/login" component={Login} />
-                <Route path="/forgot-password" component={ForgotPassword} />
-                <Route exact path="/loggedIn">
-                  <LoggedIn />
-                </Route>
-              </Switch>
-            </AuthProvider>
-          </Router>
-        </div>
-      </Container>
-
-
-     /* <Router>
-          <Nav />
-          <switch>
-              <Route exact path="/">
-                  <Home />
-              </Route>
-              <Route exact path="/wiz">
-                  <Wiz />
-              </Route>
-              <Route exact path="/about">
-                  <About />
-              </Route>
-              <Route exact path="/login">
-                  <Login />
-              </Route>
-              <Route exact path="/loggedIn">
-                  <LoggedIn />
-              </Route>
-          </switch>
-      </Router>
-*/
-  );
-}
-
 export default App;
 
+
+function App() {
+  return (
+
+
+
+      <div>
+          <div>
+            <Router>
+              <Nav />
+              <AuthProvider>
+                <Switch>
+                  <PrivateRoute exact path="/" component={Login} />
+                  <PrivateRoute exact path="/wiz" component={Wiz} />
+                  <PrivateRoute exact path="/about" component={About} />
+                  <PrivateRoute exact path="/loggedIn" component={LoggedIn} />
+                  <PrivateRoute exact path="/home" component={Home} />
+                  <Route path="/signup" component={Signup} />
+                  <Route path="/login" component={Login} />
+                  <Route path="/forgot-password" component={ForgotPassword} />
+                </Switch>
+              </AuthProvider>
+            </Router>
+          </div>
+      </div>
+
+
+  /*
+      <Router>
+              <Nav />
+              <switch>
+                  <Route exact path="/">
+                      <Home />
+                  </Route>
+                  <Route exact path="/wiz">
+                      <Wiz />
+                  </Route>
+                  <Route exact path="/about">
+                      <About />
+                  </Route>
+                  <Route exact path="/login">
+                      <Login />
+                  </Route>
+                  <Route exact path="/loggedIn">
+                      <LoggedIn />
+                  </Route>
+              </switch>
+          </Router>
+  */
+);
+}

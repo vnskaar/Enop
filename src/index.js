@@ -6,6 +6,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { red, green, blue } from '@material-ui/core/colors/';
 import './styles/style.css'
 import './assets/fonts/TerminalDosisBold.ttf'
+import {Nav} from "./layout";
 
 
 const darkTheme = createMuiTheme({

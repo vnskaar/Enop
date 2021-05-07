@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button'
 import {Link} from "react-router-dom";
 
 
-const unused = (props) => {
+const Login = () => {
     return(
         <Container maxWidth='xs'>
             <div className='flex flex-col justify-center items-center'>
@@ -46,4 +46,4 @@ const unused = (props) => {
 
 }
 
-export default unused
+export default Login

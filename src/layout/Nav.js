@@ -4,7 +4,7 @@ import AccountBoxIcon from '@material-ui/icons/AccountBox';
 
 const navs = [
     {
-        path: '/',
+        path: '/home',
         name: 'Home'
     },
     {
