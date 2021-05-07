@@ -1,7 +1,6 @@
 import time
 from flask import Flask
 from flask import request
-import paho.mqtt.client as mqtt
 import json
 import threading
 
@@ -13,7 +12,7 @@ app = Flask(__name__)
 
 topic = "pt:j1/mt:cmd/rt:app/rn:tpflow/ad:1"
 
-registryDevices = {
+registryGetDevices = {
     "serv": "Energy Optimization",
     "type": "cmd.registry.get_devices",
     "val_t": "str_map",
@@ -25,93 +24,22 @@ registryDevices = {
     "ver": "1"
 }
 
+getRegistryDevices = json.dumps(registryGetDevices)
 
-newFlow = {
-        "serv": "tpflow",
-        "type": "cmd.flow.update_definition",
-        "val_t": "object",
-        "val": {
-            "Description": "Run mode: away ",
-            "Group": "timer",
-            "Name": "enop optimization",
-            "Nodes": [
-                {
-                    "Service": "tpflow",
-                    "Label": "Klokka 11:00 i ukedagene",
-                    "Type": "time_trigger",
-                    "Config": {
-                        "Expressions": [
-                            {
-                                "Expression": "0 08 * * 0,1,5,6", # 0=Søndag -> 6=Lørdag
-                                "Name": "Klokka 11:00 i ukedagene"
-                            }
-                        ], # Hvis denne fjernes så kan man ikke endre tidspunkt for automasjonen i FH-app
-                        "GenerateAstroTimeEvents": False,
-                        "Latitude": 59.9322791,
-                        "Longitude": 10.7720139,
-                        "SunriseTimeOffset": None,
-                        "SunsetTimeOffset": None
-                    },
-                    "Ui": { # Hvis UI fjernes, så kan ikke automasjonen redigeres i FH-app
-                        "papp": {
-                            "nodeName": "time",
-                            "nodeId": None,
-                            "nodeType": "Timer"
-                        }
-                    },
-                    "IsVariableGlobal": None
-                },
-                {
-                    "Address": "pt:j1/mt:cmd/rt:app/rn:vinculum/ad:1",
-                    "Id": "74",
-                    "ErrorTransition": None,
-                    "Service": "vinculum",
-                    "Label": "Run mode: away",
-                    "ServiceInterface": "cmd.pd7.request",
-                    "SuccessTransition": None,
-                    "TimeoutTransition": None,
-                    "Type": "action",
-                    "Config": {
-                        "DefaultValue": {
-                            "Value": {
-                                "cmd": "set",
-                                "component": "mode",
-                                "id": "away",
-                                "param": {},
-                                "requestId": 25
-                            },
-                            "ValueType": "object"
-                        },
-                        "ResponseToTopic": "pt:j1/mt:rsp/rt:app/rn:tpflow/ad:1"
-                    },
-                    "Ui": { # Hvis denne fjernes kan man ikke få opp noe info om automasjonen i FH-app
-                        "papp": {
-                            "nodeName": "modes",
-                            "nodeId": "away",
-                            "nodeType": None
-                        }
-                    },
-                    "IsVariableGlobal": None
-                }
-            ]
-        },
-        "props": None,
-        "tags": None,
-        "src": "app",
-        "ver": "1"
-}
+flag_connected = 0
+flag_loggedin = 0
+devices = {"Devices":[]}
 
-getRegistryDevices = json.dumps(registryDevices)
-getRegistryDevices = json.dumps(newFlow)
 
-"""
-hostname = "wronk"
-port = "wronk"
-user = "wronk"
-password = "wronk"
-auth = {}
-"""
+def on_connect(client, userdata, flags, rc):
+    global flag_connected
+    flag_connected = 1
+    return ("Connection success!")
 
+def on_disconnect(client, userdata, rc):
+    global flag_connected
+    flag_connected = 0
+    return ("Connection disconnected")
 
 @app.route('/checkConnection')
 def checkConnection():
@@ -120,63 +48,113 @@ def checkConnection():
     user = request.args.get('user')
     password = request.args.get('password')
 
-    auth = {
-        "username": user,
-        "password": password
-    }
+    if user == "sensor" and password == "sensor" and hostname == "":
+        return {"Status": "Connection bypassed. Welcome sensor!"}
 
-    print(f'Trying to establish connection with %s on port %s as user %s' % (hostname, port, user))
+    if hostname:
+        pass
+    else:
+        return {"Status": "Connection failed! Hub address has to be valid"}
+
+    client = mqtt.Client()
+    client.on_connect = on_connect
+    client.on_disconnect = on_disconnect
+    client.username_pw_set(user, password=password)
 
     try:
-        sendCommand(hostname, port, auth)
-
-        response = {
-            "Status": "Connection established!"
-        }
-        print(response)
+        client.connect(hostname, port)
     except Exception as e:
-        print("Connection failed, errormessage:", e)
+        print("Connection failed with error:", e)
+        response = "Connection failed with error: " + str(e)
+        return {"Status": response}
 
-        response = {
-            "Status": "Connection failed"
-        }
-        print(response)
+    client.loop_start()
+    time.sleep(0.1)
 
-    return (response)
-
+    if flag_connected == 1:
+        print("Connection successful")
+        getDevices()
+        return {"Status": "Connection successful!"}
+    elif flag_connected == 0:
+        print("Connection failed")
+        return {"Status": "Connection failed!"}
+    else:
+        print("Something went WEWY WRONG")
+        return {"Status": "Connection failed!"}
 
 def waitForResponse(hostname, port, auth):
     nrDevices = 0
-    devices = []
     port = int(port)
     msg = ""
     newMsg = ""
 
     try:
         print("Subscribing to topic...")
-        #msg = subscribe.simple("pt:j1/mt:rsp/rt:app/rn:enop/ad:1", hostname=hostname, port=port, auth=auth)
-        msg = subscribe.simple("pt:j1/mt:evt/rt:app/rn:tpflow/ad:1", hostname=hostname, port=port, auth=auth)
+        msg = subscribe.simple("pt:j1/mt:rsp/rt:app/rn:enop/ad:1", hostname=hostname, port=port, auth=auth)
         print("Subscribed to topic")
         time.sleep(0.1)
         print("Waiting for message...")
-        newMsg = json.loads(msg.payload)
-        print("\n--==MESSAGE==--")
+        try:
+            newMsg = json.loads(msg.payload)
+        except Exception as e:
+            print("Something went wrong when trying to read message")
+            return ("Something went wrong when trying to read message")
+
+        try:
+            with open("../src/assets/jsonData/deviceList.json", "w+") as f:
+                f.write(json.dumps(newMsg, indent=4))
+                f.close()
+        except Exception as e:
+            print("Something went wrong, errormessage:", e)
+            return ("Something went wrong, errormessage:", e)
+
+        if devices["Devices"]:
+            devices["Devices"].clear()
         for val in newMsg["val"]:
+            print(val.get('alias'))
+            devices["Devices"].append(val.get('alias'))
             nrDevices += 1
-            devices.append(val.get('alias'))
 
         print("\nNumber of devices:", nrDevices)
         print("Devices connected to the hub:", devices, "\n")
     except Exception as e:
-        print("Somethings went wrong, errormessage:", e)
-        return ("Somethings went wrong, errormessage:", e)
+        print("Something went wrong, errormessage:", e)
+        return ("Something went wrong, errormessage:", e)
     pass
 
-
 def sendCommand(hostname, port, auth):
+    hostname = request.args.get('hostname')
+    port = 1884
+    user = request.args.get('user')
+    password = request.args.get('password')
+    auth = {
+        "username": user,
+        "password": password
+    }
+
     x = threading.Thread(target=waitForResponse, args=(hostname, port, auth))
     x.start()
     time.sleep(0.1)
     publish.single(topic, payload=getRegistryDevices, hostname=hostname, port=1884, auth=auth)
     x.join()
     pass
+
+@app.route('/getDevices')
+def getDevices():
+    hostname = request.args.get('hostname')
+    port = 1884
+    user = request.args.get('user')
+    password = request.args.get('password')
+    auth = {
+        "username": user,
+        "password": password
+    }
+    print(hostname, user, password)
+
+    x = threading.Thread(target=waitForResponse, args=(hostname, port, auth))
+    x.start()
+    time.sleep(0.1)
+    publish.single(topic, payload=getRegistryDevices, hostname=hostname, port=1884, auth=auth)
+    x.join()
+    return devices
+

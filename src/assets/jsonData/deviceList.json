@@ -1,0 +1,22 @@
+{
+    "type": "evt.registry.things_report",
+    "serv": "tpflow",
+    "val_t": "object",
+    "val": [
+        {
+            "id": 1,
+            "thing_id": 1,
+            "location_id": 1,
+            "alias": "FH hub",
+            "type": "",
+            "services": null,
+            "location_alias": "Living Room(room living)"
+        }
+    ],
+    "tags": null,
+    "props": null,
+    "ver": "1",
+    "corid": "",
+    "ctime": "2021-05-07T12:01:47.399+02:00",
+    "uid": "fc192be7-af61-4703-8b9d-4c40050cb3ca"
+}

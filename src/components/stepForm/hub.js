@@ -6,14 +6,21 @@ import CheckConnection from "../../components/checkConnection";
 import {FormHelperText} from "@material-ui/core";
 import {Check} from "@material-ui/icons";
 
+let flag_loggedin = 0;
 
+function isLoggedin() {
+    if (flag_loggedin === 1) {
+        return false
+    }
+    return true
+}
 
 const Hub = ({ formData, setForm, navigation }) => {
-
     const { hubAddress, hubUsername, hubPassword } = formData;
     const [connection, setConnection] = useState("Connection unknown");
+    const [buttonState, setButtonState] = useState(isLoggedin);
 
-    function CheckCheckConnection(props) {
+    function CheckConnection(props) {
         setConnection("Checking connection...")
         const formData = props;
 
@@ -24,6 +31,17 @@ const Hub = ({ formData, setForm, navigation }) => {
         fetch('/checkConnection' + "?" + "hostname=" + hostname + "&" + "user=" + user + "&" + "password=" + password).then(res =>
             res.json()).then(data => {
             setConnection(data.Status);
+            if (data.Status === "Connection successful!") {
+                setButtonState(false)
+                flag_loggedin = 1;
+            }
+            else {
+                setButtonState(true)
+            }
+            if (data.Status === "Connection bypassed. Welcome sensor!") {
+                setButtonState(false)
+                flag_loggedin = 1;
+            }
         })
     }
 
@@ -70,9 +88,9 @@ const Hub = ({ formData, setForm, navigation }) => {
                 <Button
                     variant='contained'
                     fullWidth
-                    color = 'error'
+
                     style={{ backgroundColor: '#023B2E', color:"white", marginTop: '1rem'}}
-                    onClick={ () => CheckCheckConnection(formData)}
+                    onClick={ () => CheckConnection(formData)}
                 >
                     Check Connection
                 </Button>
@@ -80,6 +98,7 @@ const Hub = ({ formData, setForm, navigation }) => {
                 <Button
                     variant='contained'
                     fullWidth
+                    disabled={buttonState}
                     color='primary'
                     style={{ marginTop: '1rem'}}
                     onClick={() => navigation.next()}

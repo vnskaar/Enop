@@ -11,7 +11,7 @@ const Home = () =>
                 variant='h2'
 
             >
-                Enop
+                enop
             </Typography>
 
             <Typography
