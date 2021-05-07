@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import { ThemeProvider, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { red, green, blue } from '@material-ui/core/colors/';
 import './styles/style.css'
 import './assets/fonts/TerminalDosisBold.ttf'
 

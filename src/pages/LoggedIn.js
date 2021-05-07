@@ -1,9 +1,6 @@
 import React from "react";
 import { Layout } from '../layout'
-import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import { FormLabel, Button } from "@material-ui/core";
-import {Link} from "react-router-dom";
 import DeviceListSwitches from "../components/deviceListSwitches";
 
 const LoggedIn = () => {
