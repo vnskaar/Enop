@@ -3,14 +3,7 @@ import { Layout } from '../layout'
 import 'react-circular-progressbar/dist/styles.css';
 import DeviceListSwitches from "../components/deviceListSwitches";
 
-const LoggedIn = () => {
-
-    const percentage = 50;
-
-    /*const handleChange = (event) => {
-        setState({ ...state, [event.target.name]: event.target.checked });
-    };*/
-
+const Dashboard = () => {
     return(
         <Layout>
             <container maxWidth='xs'>
@@ -25,4 +18,4 @@ const LoggedIn = () => {
         </Layout>
 )
 }
-export default LoggedIn;
+export default Dashboard;

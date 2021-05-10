@@ -7,7 +7,7 @@ import {Alert} from "@material-ui/lab";
 import {Layout} from "../layout";
 import Container from "@material-ui/core/Container";
 
-export default function Signup() {
+function Signup() {
     const emailRef = useRef()
     const passwordRef = useRef()
     const passwordConfirmRef = useRef()
@@ -88,10 +88,11 @@ export default function Signup() {
                     </Button>
                 </form>
                 <div className="w-100 text-center mt-2">
-                    Already have an account? <Link to="/login">Log In</Link>
+                    Already have an account? <Link to="/">Log In</Link>
                 </div>
             </Container>
 
         </Layout>
     )
 }
+export default Signup;

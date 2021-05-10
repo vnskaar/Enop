@@ -1,11 +1,13 @@
 import React, { useRef, useState } from "react"
 import { useAuth } from "../contexts/AuthContext"
 import { Link } from "react-router-dom"
-import {FormControl, FormGroup, FormLabel} from "@material-ui/core";
+import {FormControl, FormGroup, FormLabel, TextField, Typography} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import {Alert} from "@material-ui/lab";
+import {Layout} from "../layout";
+import Container from "@material-ui/core/Container";
 
-export default function ForgotPassword() {
+function ForgotPassword() {
   const emailRef = useRef()
   const { resetPassword } = useAuth()
   const [error, setError] = useState("")
@@ -29,25 +31,42 @@ export default function ForgotPassword() {
   }
 
   return (
-    <>
-          <h2 className="text-center mb-4">Password Reset</h2>
+    <Layout>
+      <Container maxWidth='xs'>
+          <Typography variant='h4'>Password Reset</Typography>
           {error && <Alert variant="danger">{error}</Alert>}
           {message && <Alert variant="success">{message}</Alert>}
           <form onSubmit={handleSubmit}>
             <FormGroup id="email">
-              <FormLabel>Email</FormLabel>
-              <FormControl type="email" ref={emailRef} required />
+              <TextField
+                  label='Email'
+                  type='email'
+                  color='secondary'
+                  variant="outlined"
+                  margin='normal'
+                  fullWidth
+                  required
+                  inputRef={emailRef}
+              />
             </FormGroup>
-            <Button disabled={loading} className="w-100" type="submit">
+            <Button
+                variant="contained"
+                color="primary"
+                disabled={loading}
+                className="w-100"
+                type="submit"
+            >
               Reset Password
             </Button>
           </form>
           <div className="w-100 text-center mt-3">
-            <Link to="/login">Login</Link>
+            Remember your password? <Link to="/">Login</Link>
           </div>
       <div className="w-100 text-center mt-2">
         Need an account? <Link to="/signup">Sign Up</Link>
       </div>
-    </>
+      </Container>
+    </Layout>
   )
 }
+export default ForgotPassword;

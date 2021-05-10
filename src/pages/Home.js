@@ -9,14 +9,12 @@ const Home = () =>
         <div className='flex flex-col justify-center items-center'>
             <Typography
                 variant='h2'
-
             >
                 enop
             </Typography>
 
             <Typography
                 variant='h4'
-
             >
                 The home of Energy Optimization
             </Typography>

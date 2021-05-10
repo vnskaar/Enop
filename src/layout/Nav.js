@@ -2,6 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom'
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 
+
 const navs = [
     {
         path: '/home',
@@ -12,11 +13,10 @@ const navs = [
         name: 'About'
     },
     {
-        path: '/login',
+        path: '/',
         name: 'Logout'
     },
 ];
-
 
 const Nav = () => (
     <nav className='p-4 bg-gray-500' >
@@ -30,8 +30,7 @@ const Nav = () => (
                         </NavLink>
                     </li>
                 ))}
-            </ul>
-
+        </ul>
     </nav>
 );
 

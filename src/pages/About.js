@@ -3,8 +3,6 @@ import {Layout} from "../layout";
 import CheckConnection from "../components/checkConnection";
 import Button from "@material-ui/core/Button";
 import { Typography } from "@material-ui/core";
-import DeviceListCheckbox from "../components/deviceListCheckbox";
-import DeviceListSwitches from '../components/deviceListSwitches'
 import Container from "@material-ui/core/Container";
 
 

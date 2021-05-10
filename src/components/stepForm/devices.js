@@ -36,7 +36,7 @@ const Devices = ({ formData, setForm, navigation }) => {
                 fullWidth
                 color='primary'
                 style={{ marginTop: '1rem'}}
-                component={Link} to="/loggedIn"
+                component={Link} to="/dashboard"
             >
                 Submit
             </Button>
