@@ -21,16 +21,6 @@ const About = () =>
 
                 <Button variant="contained" color="primary" onClick={CheckConnection} >Send Command</Button>
 
-            <div>
-                <h2 className='text-gray-400 text-3xl'>DeviceListSwitches</h2>
-                <DeviceListSwitches></DeviceListSwitches>
-            </div>
-
-            <div>
-                <h2 className='text-gray-400 text-3xl'>DeviceListCheckbox</h2>
-                <DeviceListCheckbox></DeviceListCheckbox>
-            </div>
-
         </Layout>
     </Container>
 

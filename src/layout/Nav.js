@@ -13,7 +13,7 @@ const navs = [
     },
     {
         path: '/login',
-        name: 'Login'
+        name: 'Logout'
     },
 ];
 

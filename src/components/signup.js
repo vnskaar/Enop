@@ -1,9 +1,11 @@
 import React, { useRef, useState } from "react"
 import { useAuth } from "../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
-import {FormGroup, TextField} from "@material-ui/core";
+import {FormGroup, TextField, Typography} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import {Alert} from "@material-ui/lab";
+import {Layout} from "../layout";
+import Container from "@material-ui/core/Container";
 
 export default function Signup() {
     const emailRef = useRef()
@@ -34,53 +36,62 @@ export default function Signup() {
     }
 
     return (
-        <>
-                    <h2 className="text-center mb-4">Sign Up</h2>
-                    {error && <Alert variant="danger">{error}</Alert>}
-                    <form onSubmit={handleSubmit}>
-                        <FormGroup id="email">
-                            <TextField
-                                label='Email'
-                                type='email'
-                                color='secondary'
-                                variant="outlined"
-                                margin='normal'
-                                fullWidth
-                                required
-                                inputRef={emailRef}
-                            />
-                        </FormGroup>
-                        <FormGroup id="password">
-                            <TextField
-                                label='Password'
-                                type='password'
-                                color='secondary'
-                                variant="outlined"
-                                margin='normal'
-                                fullWidth
-                                required
-                                inputRef={passwordRef}
-                            />
-                        </FormGroup>
-                        <FormGroup id="password-confirm">
-                            <TextField
-                                label='Confirm Password'
-                                type='password'
-                                color='secondary'
-                                variant="outlined"
-                                margin='normal'
-                                fullWidth
-                                required
-                                inputRef={passwordConfirmRef}
-                            />
-                        </FormGroup>
-                        <Button disabled={loading} className="w-100" type="submit">
-                            Sign Up
-                        </Button>
-                    </form>
-            <div className="w-100 text-center mt-2">
-                Already have an account? <Link to="/login">Log In</Link>
-            </div>
-        </>
+        <Layout>
+            <Container maxWidth='xs'>
+                <Typography variant='h4'>Sign Up</Typography>
+                {error && <Alert variant="danger">{error}</Alert>}
+                <form onSubmit={handleSubmit}>
+                    <FormGroup id="email">
+                        <TextField
+                            label='Email'
+                            type='email'
+                            color='secondary'
+                            variant="outlined"
+                            margin='normal'
+                            fullWidth
+                            required
+                            inputRef={emailRef}
+                        />
+                    </FormGroup>
+                    <FormGroup id="password">
+                        <TextField
+                            label='Password'
+                            type='password'
+                            color='secondary'
+                            variant="outlined"
+                            margin='normal'
+                            fullWidth
+                            required
+                            inputRef={passwordRef}
+                        />
+                    </FormGroup>
+                    <FormGroup id="password-confirm">
+                        <TextField
+                            label='Confirm Password'
+                            type='password'
+                            color='secondary'
+                            variant="outlined"
+                            margin='normal'
+                            fullWidth
+                            required
+                            inputRef={passwordConfirmRef}
+                        />
+                    </FormGroup>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        disabled={loading}
+                        className="w-100"
+                        type="submit"
+                    >
+                        Sign Up
+                    </Button>
+                </form>
+                <div className="w-100 text-center mt-2">
+                    Already have an account? <Link to="/login">Log In</Link>
+                </div>
+            </Container>
+
+        </Layout>
     )
 }

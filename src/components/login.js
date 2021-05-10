@@ -1,10 +1,11 @@
 import React, { useRef, useState } from "react"
 import { useAuth } from "../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
-import {FormGroup, FormLabel, makeStyles, TextField} from "@material-ui/core";
+import {FormGroup, FormLabel, makeStyles, TextField, Typography} from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
 import {Alert} from "@material-ui/lab";
+import {Layout} from "../layout";
 
 const useStyles = makeStyles((theme) => ({
     text: {
@@ -39,15 +40,13 @@ export default function Login() {
     }
 
     return (
-        <>
+        <Layout>
             <Container maxWidth='xs'>
-                <div className='flex flex-col justify-center items-center'>
-                    <h2 className="text-center mb-4">Log In</h2>
+                    <Typography variant='h4'>Login</Typography>
                     {error && <Alert variant="danger">{error}</Alert>}
                     <form onSubmit={handleSubmit}>
                         <FormGroup id="email">
                             <TextField
-                                className={classes.black}
                                 label='Email'
                                 type='email'
                                 color='primary'
@@ -61,7 +60,6 @@ export default function Login() {
                         </FormGroup>
                         <FormGroup id="password">
                             <TextField
-                                className={classes.black}
                                 label='Password'
                                 type='password'
                                 color='secondary'
@@ -72,18 +70,23 @@ export default function Login() {
                                 inputRef={passwordRef}
                             />
                         </FormGroup>
-                        <Button disabled={loading} className="w-100" type="submit">
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            disabled={loading}
+                            className="w-100 mt-10"
+                            type="submit"
+                        >
                             Log In
                         </Button>
                     </form>
                     <div className="w-100 text-center mt-3">
                         <Link to="/forgot-password">Forgot your Password?</Link>
                     </div>
-                    <div className="w-100 text-center mt-2">
+                    <div className="w-100 text-center mt-3">
                         Need an account? <Link to="/signup">Sign Up</Link>
                     </div>
-                </div>
             </Container>
-        </>
+        </Layout>
     )
 }

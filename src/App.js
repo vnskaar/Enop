@@ -1,4 +1,4 @@
-import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import {BrowserRouter, BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import { Home, About, Wiz, LoggedIn } from './pages'
 import Login from './components/login'
 import { Nav } from './layout'
@@ -8,55 +8,40 @@ import ForgotPassword from "./components/ForgotPassword";
 import Signup from "./components/signup";
 
 
-export default App;
+
+const LoginContainer = () => (
+    <div>
+        <Route path="/signup" component={Signup} />
+        <Route path="/" component={Login} />
+        <Route path="/forgot-password" component={ForgotPassword} />
+    </div>
+)
+
+const DefaultContainer = () => (
+    <div>
+        <div>
+            <Nav />
+            <PrivateRoute exact path="/home" component={Home} />
+            <PrivateRoute exact path="/wiz" component={Wiz} />
+            <PrivateRoute exact path="/about" component={About} />
+            <PrivateRoute exact path="/loggedIn" component={LoggedIn} />
+        </div>
+    </div>
+)
 
 
 function App() {
     return (
-
-
-
         <div>
-            <div>
-                <Router>
-                    <Nav />
-                    <AuthProvider>
-                        <Switch>
-                            <PrivateRoute exact path="/home" component={Home} />
-                            <PrivateRoute exact path="/wiz" component={Wiz} />
-                            <PrivateRoute exact path="/about" component={About} />
-                            <PrivateRoute exact path="/loggedIn" component={LoggedIn} />
-                            <Route path="/signup" component={Signup} />
-                            <Route path="/" component={Login} />
-                            <Route path="/forgot-password" component={ForgotPassword} />
-                        </Switch>
-                    </AuthProvider>
-                </Router>
-            </div>
+            <BrowserRouter>
+                <AuthProvider>
+                    <Switch>
+                        <Route exact path='(/)' component={LoginContainer}></Route>
+                        <PrivateRoute component={DefaultContainer}></PrivateRoute>
+                    </Switch>
+                </AuthProvider>
+            </BrowserRouter>
         </div>
-
-
-        /*
-            <Router>
-                    <Nav />
-                    <switch>
-                        <Route exact path="/">
-                            <Home />
-                        </Route>
-                        <Route exact path="/wiz">
-                            <Wiz />
-                        </Route>
-                        <Route exact path="/about">
-                            <About />
-                        </Route>
-                        <Route exact path="/login">
-                            <Login />
-                        </Route>
-                        <Route exact path="/loggedIn">
-                            <LoggedIn />
-                        </Route>
-                    </switch>
-                </Router>
-        */
     );
 }
+export default App;
