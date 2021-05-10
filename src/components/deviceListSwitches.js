@@ -16,7 +16,6 @@ import {Link} from "react-router-dom";
 import {CircularProgressbar} from "react-circular-progressbar";
 import {chosenDevices} from "./deviceListCheckbox"
 
-
 const optimizedDevices = new Set();
 let numberofDevices = 0;
 let numberOfOptimizedDevices = 0;

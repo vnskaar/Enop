@@ -9,10 +9,7 @@ import {Check} from "@material-ui/icons";
 let flag_loggedin = 0;
 
 function isLoggedin() {
-    if (flag_loggedin === 1) {
-        return false
-    }
-    return true
+    return flag_loggedin !== 1;
 }
 
 const Hub = ({ formData, setForm, navigation }) => {

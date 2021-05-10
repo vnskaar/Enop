@@ -7,13 +7,6 @@ import {Link} from "react-router-dom";
 import DeviceListSwitches from "../components/deviceListSwitches";
 
 const LoggedIn = () => {
-
-    const percentage = 50;
-
-    /*const handleChange = (event) => {
-        setState({ ...state, [event.target.name]: event.target.checked });
-    };*/
-
     return(
         <Layout>
             <container maxWidth='xs'>

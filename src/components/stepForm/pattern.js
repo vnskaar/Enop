@@ -57,7 +57,7 @@ const Pattern = ({ formData, setForm, navigation }) => {
                 type='time'
                 defaultValue="15:00"
                 InputLabelProps={{
-                    shrink: true,
+                    shrink: true
                 }}
                 inputProps={{
                     step: 300, // 5 min
@@ -74,7 +74,8 @@ const Pattern = ({ formData, setForm, navigation }) => {
                 type='time'
                 defaultValue="23:00"
                 InputLabelProps={{
-                    shrink: true}}
+                    shrink: true
+                }}
                 inputProps={{
                     step: 300, // 5 min
                 }}
