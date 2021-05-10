@@ -5,9 +5,22 @@ import {Checkbox, IconButton, ListItem, ListItemIcon, ListItemSecondaryAction, L
 import List from "reactstrap/es/List";
 import {Link} from "react-router-dom";
 import DeviceListCheckbox from "../deviceListCheckbox";
-
+import {allFormData} from "./hub";
 
 const Devices = ({ formData, setForm, navigation }) => {
+
+
+    for (const entry in formData) {
+        console.log("Iterating over : " + entry)
+        console.log("This is the value : " + formData[entry])
+        allFormData[entry] = formData[entry]
+    }
+
+    console.log("All Form Data:")
+    console.log(allFormData)
+
+
+
 
     const [checked, setChecked] = React.useState([0]);
 

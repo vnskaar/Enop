@@ -8,6 +8,8 @@ import {Check} from "@material-ui/icons";
 
 let flag_loggedin = 0;
 
+export const allFormData = [];
+
 function isLoggedin() {
     return flag_loggedin !== 1;
 }
@@ -50,6 +52,7 @@ const Hub = ({ formData, setForm, navigation }) => {
                 <TextField
                     label='Hub Address'
                     name='hubAddress'
+                    defaultValue={allFormData[hubAddress]}
                     value={hubAddress}
                     onChange={setForm}
                     margin='normal'
@@ -71,6 +74,7 @@ const Hub = ({ formData, setForm, navigation }) => {
 
                 <TextField
                     label='Hub Password'
+                    type='password'
                     name='hubPassword'
                     value={hubPassword}
                     onChange={setForm}
