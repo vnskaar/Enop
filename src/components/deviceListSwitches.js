@@ -15,7 +15,7 @@ import {
 import {Link} from "react-router-dom";
 import {CircularProgressbar} from "react-circular-progressbar";
 import {chosenDevices} from "./deviceListCheckbox"
-
+import {allFormData} from "./stepForm/hub.js";
 
 const optimizedDevices = new Set();
 let numberofDevices = 0;
@@ -52,6 +52,9 @@ const DeviceListSwitches = () => {
     }
 
     const printSwitches = () => {
+        console.log("This is all the formData")
+        console.log(allFormData)
+
         const hostname = "192.168.2.65";
         const user = "jesper";
         const password = "jesper";
@@ -83,7 +86,7 @@ const DeviceListSwitches = () => {
                     <div>
                         <FormGroup>
                             <FormControlLabel
-                                control={<Switch id={device.id} disabled={checkIfChosen(device.alias)} checked={checkIfOptimized(device.alias)} name={device.alias} onChange={toggleSwitch}>{device.id}</Switch>}
+                                control={<Switch id={device.id.toString()} disabled={checkIfChosen(device.alias)} checked={checkIfOptimized(device.alias)} name={device.alias} onChange={toggleSwitch}>{device.id}</Switch>}
                                 label={device.alias}>
                             </FormControlLabel>
                         </FormGroup>

@@ -2,15 +2,16 @@ import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
-
+import CheckConnection from "../../components/checkConnection";
+import {FormHelperText} from "@material-ui/core";
+import {Check} from "@material-ui/icons";
 
 let flag_loggedin = 0;
 
+export const allFormData = [];
+
 function isLoggedin() {
-    if (flag_loggedin === 1) {
-        return false
-    }
-    return true
+    return flag_loggedin !== 1;
 }
 
 const Hub = ({ formData, setForm, navigation }) => {
@@ -51,6 +52,7 @@ const Hub = ({ formData, setForm, navigation }) => {
                 <TextField
                     label='Hub Address'
                     name='hubAddress'
+                    defaultValue={allFormData[hubAddress]}
                     value={hubAddress}
                     onChange={setForm}
                     margin='normal'
@@ -72,6 +74,7 @@ const Hub = ({ formData, setForm, navigation }) => {
 
                 <TextField
                     label='Hub Password'
+                    type='password'
                     name='hubPassword'
                     value={hubPassword}
                     onChange={setForm}

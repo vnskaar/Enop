@@ -1,5 +1,6 @@
 import React from "react";
 import { TextField, Container, Button, Grid } from "@material-ui/core";
+import {allFormData} from "./hub.js";
 
 
 const Pattern = ({ formData, setForm, navigation }) => {
@@ -17,7 +18,7 @@ const Pattern = ({ formData, setForm, navigation }) => {
             >
             <TextField
                 label='First up'
-                defaultValue="06:00"
+                value={allFormData[val1]}
                 name='val1'
                 onChange={setForm}
                 margin='normal'
@@ -57,7 +58,7 @@ const Pattern = ({ formData, setForm, navigation }) => {
                 type='time'
                 defaultValue="15:00"
                 InputLabelProps={{
-                    shrink: true,
+                    shrink: true
                 }}
                 inputProps={{
                     step: 300, // 5 min
@@ -74,7 +75,8 @@ const Pattern = ({ formData, setForm, navigation }) => {
                 type='time'
                 defaultValue="23:00"
                 InputLabelProps={{
-                    shrink: true}}
+                    shrink: true
+                }}
                 inputProps={{
                     step: 300, // 5 min
                 }}

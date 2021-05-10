@@ -30,7 +30,7 @@ const DeviceListCheckbox = () => {
                             <div>
                                 <FormGroup>
                                     <FormControlLabel
-                                        control={<Checkbox name={device.alias} id={device.id} defaultChecked={checkIfChecked(device.alias)} onChange={toggleBox}>{device.id}</Checkbox>}
+                                        control={<Checkbox name={device.alias} id={device.id.toString()} defaultChecked={checkIfChecked(device.alias)} onChange={toggleBox}>{device.id}</Checkbox>}
                                         label={device.alias}>
                                     </FormControlLabel>
                                 </FormGroup>
