@@ -19,9 +19,6 @@ const Devices = ({ formData, setForm, navigation }) => {
     console.log("All Form Data:")
     console.log(allFormData)
 
-
-
-
     const [checked, setChecked] = React.useState([0]);
 
     const handleToggle = (value) => () => {
@@ -65,10 +62,7 @@ const Devices = ({ formData, setForm, navigation }) => {
             >
                 Previous
             </Button>
-
-
         </Container>
     )
 }
-
 export default Devices

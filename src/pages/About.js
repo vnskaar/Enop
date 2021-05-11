@@ -9,17 +9,8 @@ import Container from "@material-ui/core/Container";
 const About = () =>
     <Container maxWidth='xs'>
         <Layout>
-
-                <Typography
-                    variant='h2'
-                >
-                    About Enop
-                </Typography>
-
-
+                <Typography variant='h2'>About Enop</Typography>
                 <Button variant="contained" color="primary" onClick={CheckConnection} >Send Command</Button>
-
         </Layout>
     </Container>
-
 export default About;

@@ -103,7 +103,7 @@ const DeviceListSwitches = () => {
                 value={percentage}
                 text={`${percentage}%`}
             />
-            <FormLabel component="legend">Turn Optimized on/off for Devices</FormLabel>
+            <FormLabel component="legend" style={{padding: 20}}>Turn Optimization On/Off for Devices</FormLabel>
             <ol>
                 {listAllSwitches()}
             </ol>

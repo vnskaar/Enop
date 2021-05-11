@@ -34,7 +34,6 @@ const DeviceListCheckbox = () => {
                                         label={device.alias}>
                                     </FormControlLabel>
                                 </FormGroup>
-
                             </div>
                         </li>
                     ))

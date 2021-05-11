@@ -106,8 +106,6 @@ const Pattern = ({ formData, setForm, navigation }) => {
             >
                 Previous
             </Button>
-
-
         </Container>
     )
 }
