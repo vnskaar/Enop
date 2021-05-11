@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import './styles/style.css'
-import './assets/fonts/TerminalDosisBold.ttf'
+import './styles/style.css';
+import './assets/fonts/TerminalDosisBold.ttf';
 
 
 const darkTheme = createMuiTheme({

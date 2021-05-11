@@ -16,6 +16,7 @@ const Pattern = ({ formData, setForm, navigation }) => {
                 justify="center"
                 alignItems="center"
             >
+                <p style={{paddingTop: 30}}>When does the first person usually get up in the morning? </p>
             <TextField
                 label='First up'
                 value={allFormData[val1]}
@@ -32,6 +33,7 @@ const Pattern = ({ formData, setForm, navigation }) => {
                     step: 300, // 5 min
                 }}
             />
+                <p style={{paddingTop: 30}}>When does the last person usually leave for school/work? </p>
             <TextField
                 label='Last leave'
                 name='val2'
@@ -48,6 +50,7 @@ const Pattern = ({ formData, setForm, navigation }) => {
                     step: 300, // 5 min
                 }}
             />
+                <p style={{paddingTop: 30}}>When does the first person usually get home? </p>
             <TextField
                 label='First home'
                 name='val3'
@@ -65,6 +68,7 @@ const Pattern = ({ formData, setForm, navigation }) => {
                 }}
 
             />
+                <p style={{paddingTop: 30}}>When does the last person usually go to bed at night? </p>
             <TextField
                 label='Last bed'
                 name='val4'

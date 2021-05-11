@@ -3,9 +3,9 @@ import {
         Route,
         Switch
 } from "react-router-dom";
-import { Home, About, Wiz, Dashboard } from './pages'
-import Login from './components/login'
-import { Nav } from './layout'
+import { Home, About, Wiz, Dashboard } from './pages';
+import Login from './components/login';
+import { Nav } from './layout';
 import {AuthProvider} from "./contexts/AuthContext";
 import PrivateRoute from "./components/PrivateRoute";
 import ForgotPassword from "./components/ForgotPassword";
