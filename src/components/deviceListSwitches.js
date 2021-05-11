@@ -115,6 +115,6 @@ const DeviceListSwitches = () => {
         </div>
     )
 }
-export default DeviceListSwitches
+export default DeviceListSwitches;
 
 
