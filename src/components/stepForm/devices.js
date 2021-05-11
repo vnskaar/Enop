@@ -8,34 +8,12 @@ import DeviceListCheckbox from "../deviceListCheckbox";
 import {allFormData} from "./hub";
 
 const Devices = ({ formData, setForm, navigation }) => {
-
-
     for (const entry in formData) {
-        console.log("Iterating over : " + entry)
-        console.log("This is the value : " + formData[entry])
         allFormData[entry] = formData[entry]
     }
 
     console.log("All Form Data:")
     console.log(allFormData)
-
-
-
-
-    const [checked, setChecked] = React.useState([0]);
-
-    const handleToggle = (value) => () => {
-        const currentIndex = checked.indexOf(value);
-        const newChecked = [...checked];
-
-        if (currentIndex === -1) {
-            newChecked.push(value);
-        } else {
-            newChecked.splice(currentIndex, 1);
-        }
-
-        setChecked(newChecked);
-    };
 
     const {} = formData;
     return (

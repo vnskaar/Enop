@@ -28,7 +28,7 @@ getRegistryDevices = json.dumps(registryGetDevices)
 
 flag_connected = 0
 flag_loggedin = 0
-devices = {"Devices":[]}
+devices = {"Devices": []}
 
 
 def on_connect(client, userdata, flags, rc):
@@ -36,10 +36,12 @@ def on_connect(client, userdata, flags, rc):
     flag_connected = 1
     return ("Connection success!")
 
+
 def on_disconnect(client, userdata, rc):
     global flag_connected
     flag_connected = 0
     return ("Connection disconnected")
+
 
 @app.route('/checkConnection')
 def checkConnection():
@@ -82,6 +84,7 @@ def checkConnection():
         print("Something went WEWY WRONG")
         return {"Status": "Connection failed!"}
 
+
 def waitForResponse(hostname, port, auth):
     nrDevices = 0
     port = int(port)
@@ -122,6 +125,7 @@ def waitForResponse(hostname, port, auth):
         return ("Something went wrong, errormessage:", e)
     pass
 
+
 def sendCommand(hostname, port, auth):
     hostname = request.args.get('hostname')
     port = 1884
@@ -138,6 +142,7 @@ def sendCommand(hostname, port, auth):
     publish.single(topic, payload=getRegistryDevices, hostname=hostname, port=1884, auth=auth)
     x.join()
     pass
+
 
 @app.route('/getDevices')
 def getDevices():
@@ -158,3 +163,52 @@ def getDevices():
     x.join()
     return devices
 
+
+@app.route('/updateSchedule')
+def updateSchedule():
+    hostname = request.args.get('hostname')
+    port = 1884
+    user = request.args.get('user')
+    password = request.args.get('password')
+    auth = {
+        "username": user,
+        "password": password
+    }
+    up = request.args.get('up')
+    leave = request.args.get('leave')
+    home = request.args.get('home')
+    sleep = request.args.get('sleep')
+
+    setWake(up)
+    setAway(leave)
+    setHome(home)
+    setSleep(sleep)
+    return {"Response": "Hello there"}
+
+
+def setWake(time):
+    if time != "":
+        print("Setting wake time to:", time)
+    else:
+        print("Time not given, cant set wake time")
+
+
+def setAway(time):
+    if time != "":
+        print("Setting away time to:", time)
+    else:
+        print("Time not given, cant set away time")
+
+
+def setHome(time):
+    if time != "":
+        print("Setting home time to:", time)
+    else:
+        print("Time not given, cant set home time")
+
+
+def setSleep(time):
+    if time != "":
+        print("Setting home time to:", time)
+    else:
+        print("Time not given, cant set sleep time")

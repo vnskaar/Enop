@@ -18,7 +18,6 @@ const Pattern = ({ formData, setForm, navigation }) => {
             >
             <TextField
                 label='First up'
-                value={allFormData[val1]}
                 name='val1'
                 onChange={setForm}
                 margin='normal'
@@ -40,7 +39,6 @@ const Pattern = ({ formData, setForm, navigation }) => {
                 variant='outlined'
                 autoComplete='off'
                 type='time'
-                defaultValue="08:00"
                 InputLabelProps={{
                     shrink: true
                 }}
@@ -56,7 +54,6 @@ const Pattern = ({ formData, setForm, navigation }) => {
                 variant='outlined'
                 autoComplete='off'
                 type='time'
-                defaultValue="15:00"
                 InputLabelProps={{
                     shrink: true
                 }}
@@ -73,7 +70,6 @@ const Pattern = ({ formData, setForm, navigation }) => {
                 variant='outlined'
                 autoComplete='off'
                 type='time'
-                defaultValue="23:00"
                 InputLabelProps={{
                     shrink: true
                 }}

@@ -52,18 +52,34 @@ const DeviceListSwitches = () => {
     }
 
     const printSwitches = () => {
+        console.log("This is val 1 " + allFormData['val1'])
+        console.log("This is val 2 " + allFormData['val2'])
+        console.log("This is val 3 " + allFormData['val3'])
+        console.log("This is val 4 " + allFormData['val4'])
+
+        fetch('/updateSchedule' + "?" + "hostname=" + allFormData['hubAddress'] +
+            "&" + "user=" + allFormData['hubUsername'] +
+            "&" + "password=" + allFormData['hubPassword'] +
+            "&" + "up=" + allFormData['val1'] +
+            "&" + "leave=" + allFormData['val2'] +
+            "&" + "home=" + allFormData['val3'] +
+            "&" + "sleep=" + allFormData['val4']).then(res =>
+            res.json()).then(data => {
+            console.log(data)
+        })
+
         console.log("This is all the formData")
         console.log(allFormData)
 
         const hostname = "192.168.2.65";
         const user = "jesper";
         const password = "jesper";
-
-        console.log("Devices connected to the hub: ")
+/*
+        console.log("Devices optimized: ")
         fetch('/getDevices' + "?" + "hostname=" + hostname + "&" + "user=" + user + "&" + "password=" + password).then(res =>
             res.json()).then(data => {
             console.log(data.Devices)
-        })
+        })*/
 
         console.log(optimizedDevices)
         console.log("There are a total of " + numberofDevices + " devices connected to the hub")
@@ -82,7 +98,7 @@ const DeviceListSwitches = () => {
     const listAllSwitches = () => {
         const listItems = file.val.map((device) =>
             <ol>
-                <li key={device.id} >
+                <li key={device.id.toString()} >
                     <div>
                         <FormGroup>
                             <FormControlLabel
@@ -109,7 +125,6 @@ const DeviceListSwitches = () => {
             </ol>
             <Button
                 variant="contained" color="primary"
-                component={Link} to="/loggedIn"
                 onClick={printSwitches}
             >Submit</Button>
         </div>

@@ -6,89 +6,17 @@
         {
             "id": 1,
             "thing_id": 1,
-            "location_id": 4,
-            "alias": "Light chain",
-            "type": "light",
-            "services": null,
-            "location_alias": "Bedroom(room bed)"
-        },
-        {
-            "id": 2,
-            "thing_id": 2,
-            "location_id": 4,
-            "alias": "desk lamp",
-            "type": "light",
-            "services": null,
-            "location_alias": "Bedroom(room bed)"
-        },
-        {
-            "id": 3,
-            "thing_id": 3,
-            "location_id": 4,
-            "alias": "Roof lamp",
-            "type": "light",
-            "services": null,
-            "location_alias": "Bedroom(room bed)"
-        },
-        {
-            "id": 4,
-            "thing_id": 4,
-            "location_id": 4,
-            "alias": "Night lamp",
-            "type": "light",
-            "services": null,
-            "location_alias": "Bedroom(room bed)"
-        },
-        {
-            "id": 5,
-            "thing_id": 5,
-            "location_id": 0,
-            "alias": "HomeAway",
-            "type": "battery",
-            "services": null,
-            "location_alias": ""
-        },
-        {
-            "id": 6,
-            "thing_id": 6,
-            "location_id": 0,
-            "alias": "Go to sleep",
-            "type": "battery",
-            "services": null,
-            "location_alias": ""
-        },
-        {
-            "id": 7,
-            "thing_id": 7,
-            "location_id": 0,
-            "alias": "Daylight",
-            "type": "battery",
-            "services": null,
-            "location_alias": ""
-        },
-        {
-            "id": 8,
-            "thing_id": 8,
-            "location_id": 0,
-            "alias": "Sensor for wakeup",
-            "type": "battery",
-            "services": null,
-            "location_alias": ""
-        },
-        {
-            "id": 9,
-            "thing_id": 9,
-            "location_id": 0,
-            "alias": "zw_0_1_1",
+            "location_id": 1,
+            "alias": "FH hub",
             "type": "",
             "services": null,
-            "location_alias": ""
+            "location_alias": "Living Room(room living)"
         }
     ],
     "tags": null,
     "props": null,
     "ver": "1",
     "corid": "",
-    "ctime": "2021-05-08T23:49:09.069+02:00",
-    "uid": "56b1ab4d-726a-48ae-9467-7f99daac226c"
+    "ctime": "2021-05-11T13:00:18.595+02:00",
+    "uid": "0fdff3f9-db85-4f72-8119-95935da3f56c"
 }
