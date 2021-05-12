@@ -5,6 +5,10 @@ import Button from "@material-ui/core/Button";
 import CheckConnection from "../../components/checkConnection";
 import {FormHelperText} from "@material-ui/core";
 import {Check} from "@material-ui/icons";
+import makeStyles from "@material-ui/core/styles/makeStyles";
+import usrflow from '../../assets/usr.gif'
+import ipflow from '../../assets/ip.gif'
+import Tooltip from 'react-png-tooltip'
 
 let flag_loggedin = 0;
 
@@ -14,10 +18,23 @@ function isLoggedin() {
     return flag_loggedin !== 1;
 }
 
+let counter = 0;
+
+const useStyles = makeStyles((theme) => ({
+    tooltips: {
+        display: 'flex',
+        justifyContent: 'flex-end',
+        fontSize: 15,
+    },
+}))
+
 const Hub = ({ formData, setForm, navigation }) => {
+
     const { hubAddress, hubUsername, hubPassword } = formData;
     const [connection, setConnection] = useState("Connection unknown");
     const [buttonState, setButtonState] = useState(isLoggedin);
+
+    const classes = useStyles();
 
     function CheckConnection(props) {
         setConnection("Checking connection...")
@@ -36,8 +53,13 @@ const Hub = ({ formData, setForm, navigation }) => {
             }
             else {
                 setButtonState(true)
+                if (counter >= 5) {
+                    setConnection("Want to bypass? Leave Hub Address empty and use sensor as username and password")
+                    counter = 0;
+                }
+                counter++;
             }
-            if (data.Status === "Connection bypassed. Welcome sensor!") {
+            if (data.Status === "Connection bypassed. Welcome!") {
                 setButtonState(false)
                 flag_loggedin = 1;
             }
@@ -52,7 +74,7 @@ const Hub = ({ formData, setForm, navigation }) => {
                 <TextField
                     label='Hub Address'
                     name='hubAddress'
-                    defaultValue={allFormData[hubAddress]}
+                    defaultValue={allFormData['hubAddress']}
                     value={hubAddress}
                     onChange={setForm}
                     margin='normal'
@@ -60,6 +82,12 @@ const Hub = ({ formData, setForm, navigation }) => {
                     autoComplete='off'
                     fullWidth
                 />
+                <div className={classes.tooltips}>
+                    <Tooltip>
+                        How to find hub ip
+                        <img src={ipflow} alt='ipflow'/>
+                    </Tooltip>
+                </div>
 
                 <TextField
                     label='Hub Username'
@@ -82,6 +110,12 @@ const Hub = ({ formData, setForm, navigation }) => {
                     variant='outlined'
                     autoComplete='off'
                     fullWidth />
+            </div>
+            <div className={classes.tooltips}>
+                <Tooltip>
+                    How to find username and password
+                    <img src={usrflow} alt='userflow'/>
+                </Tooltip>
             </div>
 
             <div>

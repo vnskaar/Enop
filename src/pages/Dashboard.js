@@ -8,8 +8,8 @@ const Dashboard = () => {
         <Layout>
             <container maxWidth='xs'>
                 <div className='flex flex-col justify-center items-center'>
-                    <h1 className='text-gray-100 text-5xl p-5'>Optimization management</h1>
-                    <h1 className='text-gray-300 text-3xl p-5'>How optimized are you</h1>
+                    <h1 className='text-gray-100 text-5xl p-5'>Optimization Dashboard</h1>
+                    <h1 className='text-gray-300 text-3xl p-5'>How optimized you are:</h1>
                         <DeviceListSwitches></DeviceListSwitches>
 
                 </div>

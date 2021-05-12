@@ -16,6 +16,7 @@ import {Link} from "react-router-dom";
 import {CircularProgressbar} from "react-circular-progressbar";
 import {chosenDevices} from "./deviceListCheckbox"
 import {allFormData} from "./stepForm/hub.js";
+import Alert from "@material-ui/lab/Alert";
 
 const optimizedDevices = new Set();
 let numberofDevices = 0;
@@ -31,32 +32,31 @@ file.val.map((devices) =>
 
 
 const DeviceListSwitches = () => {
+    const [automationStatus, setAutomationStatus] = useState(null)
+
     optimizedDevices.forEach((device) => {
         if (!chosenDevices.has(device)) {
             optimizedDevices.delete(device);
             optiPercent = (optimizedDevices.size/numberofDevices)*100;
         }
     })
+
     const [percentage, setPercentage] = useState(optiPercent | 0);
-    const toggleSwitch = svitsj => {
-        if (svitsj.target.checked) {
-            console.log("Adding " + svitsj.target.name + " to list..")
-            optimizedDevices.add(svitsj.target.name);
+    const toggleSwitch = thisSwitch => {
+        if (thisSwitch.target.checked) {
+            console.log("Adding " + thisSwitch.target.name + " to list..")
+            optimizedDevices.add(thisSwitch.target.name);
         } else {
-            console.log("Removing " + svitsj.target.name + " from list..")
-            optimizedDevices.delete(svitsj.target.name);
+            console.log("Removing " + thisSwitch.target.name + " from list..")
+            optimizedDevices.delete(thisSwitch.target.name);
         }
         optiPercent = (optimizedDevices.size/numberofDevices)*100;
         console.log("The percentage is : " + (optiPercent | 0));
         setPercentage(optiPercent | 0);
     }
 
-    const printSwitches = () => {
-        console.log("This is val 1 " + allFormData['val1'])
-        console.log("This is val 2 " + allFormData['val2'])
-        console.log("This is val 3 " + allFormData['val3'])
-        console.log("This is val 4 " + allFormData['val4'])
-
+    const submitAutomations = () => {
+        setAutomationStatus("Sending automations...")
         fetch('/updateSchedule' + "?" + "hostname=" + allFormData['hubAddress'] +
             "&" + "user=" + allFormData['hubUsername'] +
             "&" + "password=" + allFormData['hubPassword'] +
@@ -66,20 +66,9 @@ const DeviceListSwitches = () => {
             "&" + "sleep=" + allFormData['val4']).then(res =>
             res.json()).then(data => {
             console.log(data)
+            setAutomationStatus(data.Status)
+
         })
-
-        console.log("This is all the formData")
-        console.log(allFormData)
-
-        const hostname = "192.168.2.65";
-        const user = "jesper";
-        const password = "jesper";
-/*
-        console.log("Devices optimized: ")
-        fetch('/getDevices' + "?" + "hostname=" + hostname + "&" + "user=" + user + "&" + "password=" + password).then(res =>
-            res.json()).then(data => {
-            console.log(data.Devices)
-        })*/
 
         console.log(optimizedDevices)
         console.log("There are a total of " + numberofDevices + " devices connected to the hub")
@@ -114,18 +103,20 @@ const DeviceListSwitches = () => {
     }
 
     return(
-        <div style={{ width: 200, height: 200 }}>
+        <div style={{ width: 300, height: 200 }}>
             <CircularProgressbar
                 value={percentage}
                 text={`${percentage}%`}
             />
-            <FormLabel component="legend">Turn Optimized on/off for Devices</FormLabel>
+            <h1 className='text-gray-300 text-3xl p-5'>Turn Optimization on/off for Devices</h1>
             <ol>
                 {listAllSwitches()}
             </ol>
+            <p style={{padding: 15}}>{automationStatus}</p>
+
             <Button
                 variant="contained" color="primary"
-                onClick={printSwitches}
+                onClick={submitAutomations}
             >Submit</Button>
         </div>
     )
