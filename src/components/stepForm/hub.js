@@ -3,7 +3,7 @@ import TextField from "@material-ui/core/TextField";
 import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
 import CheckConnection from "../../components/checkConnection";
-import {FormHelperText} from "@material-ui/core";
+import {FormHelperText, Typography} from "@material-ui/core";
 import {Check} from "@material-ui/icons";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import usrflow from '../../assets/usr.gif'
@@ -69,7 +69,7 @@ const Hub = ({ formData, setForm, navigation }) => {
 
     return (
         <Container maxWidth='xs'>
-            <h3 className='text-gray-400 text-3xl'>Hub info</h3>
+            <Typography variant='h4' className='text-gray-400 text-3xl'>Hub info</Typography>
             <div>
                 <TextField
                     label='Hub Address'
@@ -84,7 +84,7 @@ const Hub = ({ formData, setForm, navigation }) => {
                 />
                 <div className={classes.tooltips}>
                     <Tooltip>
-                        How to find hub ip
+                        <Typography variant='h5'>How to find hub ip</Typography>
                         <img src={ipflow} alt='ipflow'/>
                     </Tooltip>
                 </div>
@@ -113,7 +113,7 @@ const Hub = ({ formData, setForm, navigation }) => {
             </div>
             <div className={classes.tooltips}>
                 <Tooltip>
-                    How to find username and password
+                    <Typography variant='h5'>How to find username and password</Typography>
                     <img src={usrflow} alt='userflow'/>
                 </Tooltip>
             </div>
@@ -139,16 +139,6 @@ const Hub = ({ formData, setForm, navigation }) => {
                     onClick={() => navigation.next()}
                 >
                     Next
-                </Button>
-
-                <Button
-                    variant='contained'
-                    fullWidth
-                    color='secondary'
-                    style={{ marginTop: '1rem'}}
-                    onClick={() => navigation.previous()}
-                >
-                    Previous
                 </Button>
             </div>
         </Container>

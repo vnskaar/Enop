@@ -2,18 +2,20 @@ import React from "react";
 import { Layout } from '../layout'
 import 'react-circular-progressbar/dist/styles.css';
 import DeviceListSwitches from "../components/deviceListSwitches";
+import Container from "@material-ui/core/Container";
+import {Typography} from "@material-ui/core";
 
 const Dashboard = () => {
     return(
         <Layout>
-            <container maxWidth='xs'>
+            <Container maxWidth='xs'>
                 <div className='flex flex-col justify-center items-center'>
-                    <h1 className='text-gray-100 text-5xl p-5'>Optimization Dashboard</h1>
-                    <h1 className='text-gray-300 text-3xl p-5'>How optimized you are:</h1>
+                    <Typography variant='h2' className='text-gray-100 text-5xl p-5'>Optimization Dashboard</Typography>
+                    <Typography variant='h4' className='text-gray-300 text-3xl p-5'>How optimized you are:</Typography>
                         <DeviceListSwitches></DeviceListSwitches>
 
                 </div>
-            </container>
+            </Container>
 
         </Layout>
 )

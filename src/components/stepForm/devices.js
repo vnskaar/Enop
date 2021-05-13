@@ -1,7 +1,15 @@
 import React from "react";
 import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
-import {Checkbox, IconButton, ListItem, ListItemIcon, ListItemSecondaryAction, ListItemText} from "@material-ui/core";
+import {
+    Checkbox,
+    IconButton,
+    ListItem,
+    ListItemIcon,
+    ListItemSecondaryAction,
+    ListItemText,
+    Typography
+} from "@material-ui/core";
 import List from "reactstrap/es/List";
 import {Link} from "react-router-dom";
 import DeviceListCheckbox from "../deviceListCheckbox";
@@ -18,7 +26,7 @@ const Devices = ({ formData, setForm, navigation }) => {
     const {} = formData;
     return (
         <Container maxWidth='xs'>
-            <h3 className='text-gray-400 text-3xl'>Select Devices to optimize</h3>
+            <Typography variant='h4' className='text-gray-400 text-3xl'>Select Devices to optimize</Typography>
             <div className='w-50'>
             <DeviceListCheckbox/>
 

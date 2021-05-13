@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm, useStep} from 'react-hooks-helper'
-import { Account, Hub, Pattern, Devices } from "./stepForm/index";
+import { Hub, Pattern, Devices } from "./stepForm/index";
 
 
 const data = {
@@ -21,7 +21,6 @@ const data = {
 }
 
 const steps = [
-    { id: 'account'},
     { id: 'hub'},
     { id: 'pattern'},
     { id: 'devices'},
@@ -40,8 +39,6 @@ const MultiStepForm = () => {
     const props = { formData, setForm, navigation, selectedDevices }
 
     switch (step.id) {
-        case 'account':
-            return <Account { ...props } />;
         case 'hub':
             return <Hub { ...props } />;
         case 'pattern':

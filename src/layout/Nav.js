@@ -9,8 +9,8 @@ const navs = [
         name: 'Home'
     },
     {
-        path: '/about',
-        name: 'About'
+        path: '/dashboard',
+        name: 'Dashboard'
     },
     {
         path: '/',
@@ -19,7 +19,7 @@ const navs = [
 ];
 
 const Nav = () => (
-    <nav className='p-4 bg-gray-500' >
+    <nav className='p-5 bg-gray-500' >
         <AccountBoxIcon className='absolute float-left text-white fontSizeLarge'/>
         <ul className='flex space-x-10 justify-end text-white'>
                 {navs.map(navItem => (

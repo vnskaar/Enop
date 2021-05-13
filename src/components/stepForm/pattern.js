@@ -1,5 +1,5 @@
 import React from "react";
-import { TextField, Container, Button, Grid } from "@material-ui/core";
+import {TextField, Container, Button, Grid, Typography} from "@material-ui/core";
 import {allFormData} from "./hub.js";
 
 
@@ -14,14 +14,14 @@ const Pattern = ({ formData, setForm, navigation }) => {
 
     return (
         <Container maxWidth='xs'>
-            <h3 className='text-gray-400 text-3xl'>Household schedule</h3>
+            <Typography variant='h4' className='text-gray-400 text-3xl'>Household schedule</Typography>
             <Grid
                 container
                 direction="column"
                 justify="center"
                 alignItems="center"
             >
-                <p style={{paddingTop: 30}}>When does the first person usually get up in the morning? </p>
+                <Typography variant='body1' style={{paddingTop: 30}}>When does the first person usually get up in the morning? </Typography>
             <TextField
                 label='First up'
                 name='val1'
@@ -37,7 +37,7 @@ const Pattern = ({ formData, setForm, navigation }) => {
                     step: 300, // 5 min
                 }}
             />
-                <p style={{paddingTop: 30}}>When does the last person usually leave for school/work? </p>
+                <Typography variant='body1' style={{paddingTop: 30}}>When does the last person usually leave for school/work? </Typography>
             <TextField
                 label='Last leave'
                 name='val2'
@@ -53,7 +53,7 @@ const Pattern = ({ formData, setForm, navigation }) => {
                     step: 300, // 5 min
                 }}
             />
-                <p style={{paddingTop: 30}}>When does the first person usually get home? </p>
+                <Typography variant='body1' style={{paddingTop: 30}}>When does the first person usually get home? </Typography>
             <TextField
                 label='First home'
                 name='val3'
@@ -70,7 +70,7 @@ const Pattern = ({ formData, setForm, navigation }) => {
                 }}
 
             />
-                <p style={{paddingTop: 30}}>When does the last person usually go to bed at night? </p>
+                <Typography variant='body1' style={{paddingTop: 30}}>When does the last person usually go to bed at night? </Typography>
             <TextField
                 label='Last bed'
                 name='val4'
