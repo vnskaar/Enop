@@ -21,6 +21,24 @@ class BasicTestCase(unittest.TestCase):
         response = tester.get('/checkConnection')
         self.assertEqual(response.status_code, 200)
 
+    def test_checkConnection_correctCredentials(self):
+        print("\n--------------------------------")
+        print("New test:", self, "\n")
+        tester = app.test_client(self)
+        args = "?hostname=192.168.2.65&user=jesper&password=jesper"
+        response = tester.get('/checkConnection' + args)
+        self.assertEqual(response.status_code, 200)
+        assert (b'"Status":"Connection successful!"' in response.data)
+
+    def test_checkConnection_wrongCredentials(self):
+        pass
+
+    def test_checkConnection_wrongIP(self):
+        pass
+
+    def test_checkConnection_invalidIP(self):
+        pass
+
     def test_wrongPath(self):
         print("\n--------------------------------")
         print("New test:", self, "\n")
@@ -68,7 +86,7 @@ class BasicTestCase(unittest.TestCase):
         response = tester.get('/getDevices' + args)
         self.assertEqual(response.status_code, 500)
 
-    def test_getDevices_wrongCredentialsWrongAndUnvalidAddress(self):
+    def test_getDevices_wrongCredentialsWrongAndInvalidAddress(self):
         print("\n--------------------------------")
         print("New test:", self, "\n")
         tester = app.test_client(self)
