@@ -3,6 +3,8 @@ from flask import Flask
 from flask import request
 import json
 import threading
+import requests
+import socket
 
 import paho.mqtt.publish as publish
 import paho.mqtt.subscribe as subscribe
@@ -34,16 +36,24 @@ flag_connected = 0
 devices = {"Devices": []}
 
 
+def checkIP(ip):
+    try:
+        socket.inet_aton(ip)
+        return True
+    except socket.error:
+        return False
+
+
 def on_connect(client, userdata, flags, rc):
     global flag_connected
     flag_connected = 1
-    return ("Connection success!")
+    return "Connection success!"
 
 
 def on_disconnect(client, userdata, rc):
     global flag_connected
     flag_connected = 0
-    return ("Connection disconnected")
+    return "Connection disconnected"
 
 
 @app.route('/checkConnection')
@@ -57,7 +67,8 @@ def checkConnection():
         return {"Status": "Connection bypassed. Welcome!"}
 
     if hostname:
-        pass
+        if checkIP(hostname):
+            pass
     else:
         return {"Status": "Connection failed! Hub address has to be valid"}
 
@@ -84,7 +95,7 @@ def checkConnection():
         print("Connection failed")
         return {"Status": "Connection failed!"}
     else:
-        print("Something went WEWY WRONG")
+        print("Something went wrong")
         return {"Status": "Connection failed!"}
 
 
@@ -104,7 +115,7 @@ def waitForResponse(hostname, port, auth):
             newMsg = json.loads(msg.payload)
         except Exception as e:
             print("Something went wrong when trying to read message")
-            return ("Something went wrong when trying to read message")
+            return "Something went wrong when trying to read message"
 
         try:
             with open("../src/assets/jsonData/deviceList.json", "w+") as f:
@@ -112,7 +123,8 @@ def waitForResponse(hostname, port, auth):
                 f.close()
         except Exception as e:
             print("Something went wrong, errormessage:", e)
-            return ("Something went wrong, errormessage:", e)
+            print("Exceptiontype:", type(e))
+            return "Something went wrong, errormessage:", e
 
         if devices["Devices"]:
             devices["Devices"].clear()
@@ -125,9 +137,19 @@ def waitForResponse(hostname, port, auth):
         print("Devices connected to the hub:", devices, "\n")
     except Exception as e:
         print("Something went wrong, errormessage:", e)
-        return ("Something went wrong, errormessage:", e)
+        print("Exceptiontype:", type(e))
+        return "Something went wrong, errormessage:", e
     pass
 
+
+# ----------==========SE OM DEN KAN FJERNES ??==========---------
+# ----------==========SE OM DEN KAN FJERNES ??==========---------
+# ----------==========SE OM DEN KAN FJERNES ??==========---------
+# ----------==========SE OM DEN KAN FJERNES ??==========---------
+# ----------==========SE OM DEN KAN FJERNES ??==========---------
+# ----------==========SE OM DEN KAN FJERNES ??==========---------
+# ----------==========SE OM DEN KAN FJERNES ??==========---------
+# ----------==========SE OM DEN KAN FJERNES ??==========---------
 
 def sendCommand(hostname, port, auth):
     hostname = request.args.get('hostname')
@@ -138,14 +160,26 @@ def sendCommand(hostname, port, auth):
         "username": user,
         "password": password
     }
+    try:
+        x = threading.Thread(target=waitForResponse, args=(hostname, port, auth))
+        x.start()
+        publish.single(topic, payload=getRegistryDevices, hostname=hostname, port=1884, auth=auth)
+        x.join()
+    except Exception as e:
+        print("Something fecked", e)
+        print("Exception type:", e)
 
-    x = threading.Thread(target=waitForResponse, args=(hostname, port, auth))
-    x.start()
-    time.sleep(0.1)
-    publish.single(topic, payload=getRegistryDevices, hostname=hostname, port=1884, auth=auth)
-    x.join()
     pass
 
+
+# ----------==========SE OM DEN OVER KAN FJERNES ??==========---------
+# ----------==========SE OM DEN OVER KAN FJERNES ??==========---------
+# ----------==========SE OM DEN OVER KAN FJERNES ??==========---------
+# ----------==========SE OM DEN OVER KAN FJERNES ??==========---------
+# ----------==========SE OM DEN OVER KAN FJERNES ??==========---------
+# ----------==========SE OM DEN OVER KAN FJERNES ??==========---------
+# ----------==========SE OM DEN OVER KAN FJERNES ??==========---------
+# ----------==========SE OM DEN OVER KAN FJERNES ??==========---------
 
 @app.route('/getDevices')
 def getDevices():
@@ -157,7 +191,15 @@ def getDevices():
         "username": user,
         "password": password
     }
-    print(hostname, user, password)
+
+    if not hostname or not user or not password:
+        print("You did not supply either hostname, username or password")
+        return "You did not supply either hostname, username or password"
+
+    if not checkIP(hostname):
+        return "Connection failed, invalid IP"
+
+    print("Hostname:", hostname, "User:", user, "Password:", password)
 
     x = threading.Thread(target=waitForResponse, args=(hostname, port, auth))
     x.start()
@@ -179,7 +221,7 @@ def updateSchedule():
     }
 
     if not hostname or not user or not password:
-        return {"Status": "DIS DOESNT WORK"}
+        return {"Status": "Hostname, user or password is not provided"}
 
     up = request.args.get('up')
     leave = request.args.get('leave')
