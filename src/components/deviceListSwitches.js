@@ -10,7 +10,7 @@ import {
     ListItem,
     ListItemIcon,
     ListItemText,
-    Switch
+    Switch, Typography
 } from "@material-ui/core";
 import {Link} from "react-router-dom";
 import {CircularProgressbar} from "react-circular-progressbar";
@@ -108,7 +108,7 @@ const DeviceListSwitches = () => {
                 value={percentage}
                 text={`${percentage}%`}
             />
-            <h1 className='text-gray-300 text-3xl p-5'>Turn Optimization on/off for Devices</h1>
+            <Typography variant='h4' className='p-5'>Turn Optimization on/off for Devices</Typography>
             <ol>
                 {listAllSwitches()}
             </ol>

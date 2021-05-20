@@ -14,7 +14,7 @@ const Pattern = ({ formData, setForm, navigation }) => {
 
     return (
         <Container maxWidth='xs'>
-            <Typography variant='h4' className='text-gray-400 text-3xl'>Household schedule</Typography>
+            <Typography variant='h4' className=''>Household schedule</Typography>
             <Grid
                 container
                 direction="column"

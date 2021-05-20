@@ -26,6 +26,11 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'flex-end',
         fontSize: 15,
     },
+    content: {
+        display: "column",
+        alignItems: "center",
+        justify: "center",
+    }
 }))
 
 const Hub = ({ formData, setForm, navigation }) => {
@@ -69,7 +74,7 @@ const Hub = ({ formData, setForm, navigation }) => {
 
     return (
         <Container maxWidth='xs'>
-            <Typography variant='h4' className='text-gray-400 text-3xl'>Hub info</Typography>
+            <Typography variant='h4' className=''>Hub info</Typography>
             <div>
                 <TextField
                     label='Hub Address'
@@ -84,9 +89,13 @@ const Hub = ({ formData, setForm, navigation }) => {
                 />
                 <div className={classes.tooltips}>
                     <Tooltip>
-                        <Typography variant='h5'>How to find hub ip</Typography>
-                        <img src={ipflow} alt='ipflow'/>
+                        <div className={classes.content}>
+                            <Typography variant='h5'>How to find hub ip</Typography>
+                            <img width='60%' height='60%' src={ipflow} alt='ipflow'/>
+                        </div>
                     </Tooltip>
+
+
                 </div>
 
                 <TextField
@@ -112,10 +121,12 @@ const Hub = ({ formData, setForm, navigation }) => {
                     fullWidth />
             </div>
             <div className={classes.tooltips}>
-                <Tooltip>
-                    <Typography variant='h5'>How to find username and password</Typography>
-                    <img src={usrflow} alt='userflow'/>
-                </Tooltip>
+                    <Tooltip>
+                        <div className={classes.content}>
+                            <Typography variant='h5'>How to find username and password</Typography>
+                            <img width='60%' height='60%' src={usrflow} alt='userflow'/>
+                        </div>
+                    </Tooltip>
             </div>
 
             <div>

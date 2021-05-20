@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { NavLink } from 'react-router-dom'
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
-
+import { lightTheme, darkTheme} from '../styles/theme'
 
 const navs = [
     {
@@ -18,10 +18,10 @@ const navs = [
     },
 ];
 
-const Nav = () => (
-    <nav className='p-5 bg-gray-500' >
-        <AccountBoxIcon className='absolute float-left text-white fontSizeLarge'/>
-        <ul className='flex space-x-10 justify-end text-white'>
+const Nav = () => {
+    return (
+        <nav className='p-5 bg-gray-500'>
+            <ul className='flex space-x-10 justify-end text-white text-xl'>
                 {navs.map(navItem => (
                     <li>
                         <NavLink exact to={navItem.path}
@@ -30,8 +30,10 @@ const Nav = () => (
                         </NavLink>
                     </li>
                 ))}
-        </ul>
-    </nav>
-);
+            </ul>
+        </nav>
+    )
+
+};
 
  export default Nav;

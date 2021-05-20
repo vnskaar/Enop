@@ -26,7 +26,7 @@ const Devices = ({ formData, setForm, navigation }) => {
     const {} = formData;
     return (
         <Container maxWidth='xs'>
-            <Typography variant='h4' className='text-gray-400 text-3xl'>Select Devices to optimize</Typography>
+            <Typography variant='h4' className=''>Select Devices to optimize</Typography>
             <div className='w-50'>
             <DeviceListCheckbox/>
 

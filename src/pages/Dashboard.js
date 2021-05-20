@@ -10,8 +10,8 @@ const Dashboard = () => {
         <Layout>
             <Container maxWidth='xs'>
                 <div className='flex flex-col justify-center items-center'>
-                    <Typography variant='h2' className='text-gray-100 text-5xl p-5'>Optimization Dashboard</Typography>
-                    <Typography variant='h4' className='text-gray-300 text-3xl p-5'>How optimized you are:</Typography>
+                    <Typography variant='h2' className='p-5'>Optimization Dashboard</Typography>
+                    <Typography variant='h4' className='p-5'>How optimized you are:</Typography>
                         <DeviceListSwitches></DeviceListSwitches>
 
                 </div>

@@ -1,50 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import './styles/style.css'
+import { lightTheme, darkTheme} from './styles/theme'
 
-const darkTheme = createMuiTheme({
-    palette: {
-        type: "dark",
-        background: {
-            default: '#18303f',
-        },
-        Nav: {
-            default: 'C4C4C4',
-        },
-        primary: {
-            main: '#f94409',
-        },
-        secondary: {
-            main: '#03A9F1',
-        },
-    },
-    typography: {
-        fontFamily: 'Dosis',
-        h5: {
-            fontSize: 20
-        },
-    },
-});
-
-const lightTheme = createMuiTheme({
-    palette: {
-        type: "light",
-        background: {
-            default: '#DADADA',
-        },
-        typography: {},
-
-        primary: {
-            main: '#03A9F1',
-        },
-        secondary: {
-            main: '#f94409',
-        },
-    },
-});
 
 ReactDOM.render(
     <React.StrictMode>
