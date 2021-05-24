@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
-import CheckConnection from "../../components/checkConnection";
 import { Typography } from "@material-ui/core";
-import {Check} from "@material-ui/icons";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import usrflow from '../../assets/usr.gif'
 import ipflow from '../../assets/ip.gif'

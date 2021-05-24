@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React from "react";
 import {Checkbox, FormControlLabel, FormGroup} from "@material-ui/core";
 
 export const chosenDevices = new Set();

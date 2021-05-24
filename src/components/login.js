@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react"
 import { useAuth } from "../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
-import {FormGroup, FormLabel, makeStyles, TextField, Typography} from "@material-ui/core";
+import {FormGroup, makeStyles, TextField, Typography} from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
 import {Alert} from "@material-ui/lab";

@@ -1,22 +1,14 @@
-import React, {Component, useEffect, useRef, useState} from "react";
-import thingsReport from '../assets/jsonData/thingsReport.json'
-import {CheckBox} from "@material-ui/icons";
-import List from "reactstrap/es/List";
+import React, { useState } from "react";
 import {
     Button,
-    Checkbox,
     FormControlLabel,
-    FormGroup, FormLabel,
-    ListItem,
-    ListItemIcon,
-    ListItemText,
-    Switch, Typography
+    FormGroup,
+    Switch,
+    Typography
 } from "@material-ui/core";
-import {Link} from "react-router-dom";
 import {CircularProgressbar} from "react-circular-progressbar";
 import {chosenDevices} from "./deviceListCheckbox"
 import {allFormData} from "./stepForm/hub.js";
-import Alert from "@material-ui/lab/Alert";
 
 const optimizedDevices = new Set();
 let numberofDevices = 0;
