@@ -71,6 +71,11 @@ def checkConnection():
     password = request.args.get('password')
 
     # Gives the option to bypass the need of smart hub by logging in as demo
+    if user == "" and password == "" and hostname == "":
+        return {"Status": 'You need to input hub address, username and password. Want to bypass login? '
+                          'Use "demo" as username and password'}
+
+    # If username and password is demo, login is bypassed
     if user == "demo" and password == "demo" and hostname == "":
         return {"Status": "Connection bypassed. Welcome!"}
 
