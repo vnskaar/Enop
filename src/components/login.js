@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react"
 import { useAuth } from "../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
-import {FormGroup, makeStyles, TextField, Typography} from "@material-ui/core";
+import {FormGroup, Grid, makeStyles, TextField, Typography} from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
 import {Alert} from "@material-ui/lab";
@@ -10,8 +10,7 @@ import {Layout} from "../layout";
 const useStyles = makeStyles((theme) => ({
     text: {
         color: 'black',
-    }
-
+    },
 }));
 
 export default function Login() {
@@ -42,6 +41,13 @@ export default function Login() {
     return (
         <Layout>
             <Container maxWidth='xs'>
+                <Grid
+                    container
+                    spacing={0}
+                    direction="column"
+                    justify="center"
+                    style={{ minHeight: '90vh' }}
+                >
                     <Typography variant='h4'>Login</Typography>
                     {error && <Alert variant="danger">{error}</Alert>}
                     <form onSubmit={handleSubmit}>
@@ -86,6 +92,7 @@ export default function Login() {
                     <div className="w-100 text-center mt-3">
                         Need an account? <Link to="/signup">Sign Up</Link>
                     </div>
+                </Grid>
             </Container>
         </Layout>
     )
