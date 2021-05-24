@@ -3,7 +3,7 @@ import {
         Route,
         Switch
 } from "react-router-dom";
-import { Home, About, Wiz, Dashboard } from './pages'
+import { Home, Wiz, Dashboard } from './pages'
 import Login from './components/login'
 import { Nav } from './layout'
 import {AuthProvider} from "./contexts/AuthContext";
@@ -29,7 +29,6 @@ function App() {
             <Nav />
             <PrivateRoute exact path="/home" component={Home} />
             <PrivateRoute exact path="/wiz" component={Wiz} />
-            <PrivateRoute exact path="/about" component={About} />
             <PrivateRoute exact path="/dashboard" component={Dashboard} />
         </div>
     )
@@ -45,7 +44,6 @@ function App() {
                         <Route path='(/forgot-password)' component={LoginContainer}></Route>
                         <PrivateRoute exact path='(/home)' component={DefaultContainer}></PrivateRoute>
                         <PrivateRoute exact path='(/wiz)' component={DefaultContainer}></PrivateRoute>
-                        <PrivateRoute exact path='(/about)' component={DefaultContainer}></PrivateRoute>
                         <PrivateRoute exact path='(/dashboard)' component={DefaultContainer}></PrivateRoute>
                     </Switch>
                 </AuthProvider>
