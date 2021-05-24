@@ -26,6 +26,13 @@ class FlaskTestCases(unittest.TestCase):
         response = tester.get('/checkConnection')
         self.assertEqual(response.status_code, 200)
 
+    def test_wrongPath(self):
+        print("\n--------------------------------")
+        print("New test:", self, "\n")
+        tester = app.test_client(self)
+        response = tester.get('/a')
+        self.assertEqual(response.status_code, 404)
+
     def test_checkConnection_correctCredentials(self):
         print("\n--------------------------------")
         print("New test:", self, "\n")
@@ -80,13 +87,6 @@ class FlaskTestCases(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         assert (b'"Status":"Connection failed!"' in response.data)
 
-    def test_wrongPath(self):
-        print("\n--------------------------------")
-        print("New test:", self, "\n")
-        tester = app.test_client(self)
-        response = tester.get('/a')
-        self.assertEqual(response.status_code, 404)
-
     def test_getDevices_connection(self):
         print("\n--------------------------------")
         print("New test:", self, "\n")
@@ -125,11 +125,9 @@ class FlaskTestCases(unittest.TestCase):
         tester = app.test_client(self)
         args = "?hostname=192.100.100.100&user=thisis&password=wrong"
         response = tester.get('/getDevices' + args)
-        print("This is the response:", response)
-        print("This is the responsedata:", response.data)
         self.assertEqual(response.status_code, 500)
 
-    def test_getDevices_wrongCredentials_wrongAndInvalidAddress(self):
+    def test_getDevices_wrongCredentials_InvalidAddress(self):
         print("\n--------------------------------")
         print("New test:", self, "\n")
         tester = app.test_client(self)

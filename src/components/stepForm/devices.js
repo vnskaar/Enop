@@ -4,6 +4,7 @@ import Button from "@material-ui/core/Button";
 import {
     Typography
 } from "@material-ui/core";
+import List from "reactstrap/es/List";
 import {Link} from "react-router-dom";
 import DeviceListCheckbox from "../deviceListCheckbox";
 import {allFormData} from "./hub";

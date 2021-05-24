@@ -57,7 +57,7 @@ const Hub = ({ formData, setForm, navigation }) => {
             else {
                 setButtonState(true)
                 if (counter >= 5) {
-                    setConnection("Want to bypass? Leave Hub Address empty and use sensor as username and password")
+                    setConnection('Want to bypass? Leave Hub Address empty and use "demo" as username and password')
                     counter = 0;
                 }
                 counter++;
