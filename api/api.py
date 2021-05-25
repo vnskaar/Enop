@@ -3,7 +3,6 @@ from flask import Flask
 from flask import request
 import json
 import threading
-import requests
 import socket
 
 import paho.mqtt.publish as publish
