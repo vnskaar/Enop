@@ -27,7 +27,8 @@ Open [http://127.0.0.1:5000/](http://127.0.0.1:5000/) To view flask server in br
 
 The application has a default user created.\
 Username: `bruker@mail.com`\
-Password: `123456`
+Password: `123456`\
+But feel free to create your own!
 
 ## Hub Information
 
